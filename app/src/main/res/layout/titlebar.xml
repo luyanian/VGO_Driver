@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="android.view.View"/>
+        <variable name="title" type="String"/>
+        <variable name="showLeftBack" type="Boolean"/>
+        <variable name="paddingTop" type="Integer"/>
+        <variable name="showRightTextButton" type="Boolean"/>
+        <variable name="rightButtonText" type="String"/>
+        <variable name="options" type="com.lanhi.vgo.driver.weight.titlebar.TitleBarOptions"/>
+    </data>
+    <RelativeLayout
+        android:id="@+id/rl_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="vertical"
+        android:paddingTop="@{paddingTop}"
+        android:background="@drawable/bg_title_bar">
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_white"
+            android:text="@{title}"
+            android:textSize="18dp"/>
+        <LinearLayout
+            android:id="@+id/ll_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/btn_left_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="8dp"
+                android:padding="5dp"
+                android:visibility="@{safeUnbox(showLeftBack) ? View.VISIBLE : View.GONE}"
+                android:onClick="@{options::onLeftBack}"
+                android:src="@drawable/icon_back"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|right"
+            android:layout_alignParentRight="true">
+            <TextView
+                android:id="@+id/btn_right_text_option"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/color_white"
+                android:textSize="16dp"
+                android:padding="6dp"
+                android:text="@{rightButtonText}"
+                android:visibility="@{safeUnbox(showRightTextButton) ? View.VISIBLE : View.GONE}"
+                android:onClick="@{options::onRightTextButton}"
+                android:layout_marginLeft="8dp"/>
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

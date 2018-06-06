@@ -1,0 +1,121 @@
+{
+  "project_info": {
+    "project_number": "929979279493",
+    "firebase_url": "https://vgo-platform.firebaseio.com",
+    "project_id": "vgo-platform",
+    "storage_bucket": "vgo-platform.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929979279493:android:45af88b0a292a2d1",
+        "android_client_info": {
+          "package_name": "com.lanhi.vgo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929979279493-n5d5r5npfvid1sp25smhq360qlqrplq4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lanhi.vgo",
+            "certificate_hash": "d2ea909129184526f0ed0cae8de1ddb8bb10f8eb"
+          }
+        },
+        {
+          "client_id": "929979279493-00badtnu72hhgv2j8o5m3cmk78qpjl04.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "929979279493-00badtnu72hhgv2j8o5m3cmk78qpjl04.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrchZZkzXzU1-HxOz7pc7hH0qg-OVVTYw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "929979279493-00badtnu72hhgv2j8o5m3cmk78qpjl04.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "929979279493-cvgpqe019esf9ugaakb901n08onkru0b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lanhi.consignor"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929979279493:android:4e4c94617411a5e8",
+        "android_client_info": {
+          "package_name": "com.lanhi.vgo.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929979279493-un8m3qca240o8mc2a2mqhfnha112v5js.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lanhi.vgo.driver",
+            "certificate_hash": "a48d4ba7033acd676485ea0616a0cfeb0d5eca48"
+          }
+        },
+        {
+          "client_id": "929979279493-00badtnu72hhgv2j8o5m3cmk78qpjl04.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "929979279493-00badtnu72hhgv2j8o5m3cmk78qpjl04.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrchZZkzXzU1-HxOz7pc7hH0qg-OVVTYw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "929979279493-00badtnu72hhgv2j8o5m3cmk78qpjl04.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "929979279493-cvgpqe019esf9ugaakb901n08onkru0b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lanhi.consignor"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="listener"
+            type="com.lanhi.vgo.driver.weight.selector.RSelectorChangeLisener"/>
+        <variable
+            name="leftTitle"
+            type="String"/>
+        <variable
+            name="rightTitle"
+            type="String"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_item1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@{leftTitle}"
+                android:clickable="true"
+                android:textColor="@drawable/rselector_select_color"
+                android:textIsSelectable="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:textSize="16dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/tv_item2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@{rightTitle}"
+                android:textColor="@drawable/rselector_select_color"
+                android:textIsSelectable="true"
+                android:focusableInTouchMode="false"
+                android:focusable="false"
+                android:clickable="true"
+                android:textSize="16dp" />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

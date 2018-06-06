@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VGO</string>
+    <string name="sign_in">登录</string>
+    <string name="sign_out">退出登录</string>
+    <string name="regist">注册</string>
+    <string name="sign_in_with_account">普通登录</string>
+    <string name="sign_in_with_code">手机动态登录</string>
+    <string name="verificationv_code">验证码</string>
+    <string name="password_found">找回密码</string>
+    <string name="password_reset">重置密码</string>
+    <string name="password_edit">修改密码</string>
+    <string name="menu_home_text">发布订单</string>
+    <string name="menu_order_text">订单</string>
+    <string name="menu_my_text">我的</string>
+    <string name="order_detail">订单详情</string>
+    <string name="order_state_all">全部</string>
+    <string name="order_state_cancle">已取消</string>
+    <string name="order_state_unanswewd">待抢单</string>
+    <string name="order_state_unpickup">待取货</string>
+    <string name="order_state_on_the_way">配送中</string>
+    <string name="order_state_complete">已完成</string>
+
+    <string name="btn_sign_out">退出登录</string>
+    <string name="btn_save">保存</string>
+    <string name="btn_next">下一步</string>
+    <string name="btn_get_verificationv_code">获取验证码</string>
+    <string name="btn_regist_and_sign_in">注册，并立即登录</string>
+    <string name="btn_vertify_right_now">立即验证</string>
+    <string name="btn_order_publish">发布订单</string>
+    <string name="btn_order_publish_cancel">清空信息</string>
+    <string name="btn_order_list_publish_cancel">取消发布</string>
+    <string name="btn_order_list_view_detail">查看详情</string>
+
+    <string name="hint_phone_num">手机号</string>
+    <string name="hint_password">密码</string>
+    <string name="hint_password2">确认密码</string>
+    <string name="hint_old_password">原始密码</string>
+    <string name="hint_new_password">新密码</string>
+    <string name="hint_input_username">请输入姓名</string>
+    <string name="hint_input_shopname">请输入店铺名称</string>
+    <string name="hint_input_zipcode">请输入邮政编码</string>
+    <string name="hint_input_address">请输入详细地址</string>
+    <string name="hint_input_email">请输入email</string>
+    <string name="hint_input_check_account">请输入支票账户</string>
+    <string name="hint_input_routing_num">请输入 Routing Number</string>
+    <string name="hint_input_tax_num">请输入税号</string>
+    <string name="hint_input_referee_name">请输入推荐人姓名(选填)</string>
+    <string name="hint_input_referee_tel">请输入推荐人电话(选填)</string>
+
+    <string name="hint_input_consignor_phone">请输入发货人电话</string>
+    <string name="hint_input_consignor_name">请输入发货人姓名</string>
+    <string name="hint_input_consignor_zipCode">请输入发货人邮政编码</string>
+    <string name="hint_input_consignor_address">请输入发货人详细街道楼牌号地址</string>
+
+    <string name="hint_input_recipient_phone">请输入收货人电话</string>
+    <string name="hint_input_recipient_name">请输入收货人姓名</string>
+    <string name="hint_input_recipient_zipCode">请输入收货人邮政编码</string>
+    <string name="hint_input_recipient_address">请输入收货人详细街道楼牌号地址</string>
+    <string name="hint_input_order_desc">请输入配送清单信息</string>
+    <string name="hint_input_order_amount">请输入订单金额</string>
+    <string name="hint_input_postage_fee">配送费根据地址自动计算</string>
+    <string name="hint_input_postage_tip">特殊物流加收配送费（选填）</string>
+    <string name="hint_input_remark">备注信息</string>
+
+    <string name="msg_agreement_value">&#160;&#160;已同意</string>
+    <string name="msg_agreement_name">&#160;&#171;配送品台用户协议&#187;</string>
+    <string name="msg_vertify_your_account">验证您的账号</string>
+    <string name="msg_commit_successful">提交成功</string>
+    <string name="msg_vertify_account_success">已找到该账号，稍后将受到短信验证码，谨防泄漏！</string>
+
+    <string name="txt_order_state">订单状态：</string>
+    <string name="txt_order_list_id">订单编号：</string>
+    <string name="txt_order_list_name">店铺名称：</string>
+    <string name="txt_order_list_address">取货地址：</string>
+    <string name="txt_order_list_post_fee">配送费用：</string>
+    <string name="txt_distribution_information">配送信息</string>
+    <string name="txt_my_balance">我的余额</string>
+    <string name="txt_balance_of_payments">收支明细</string>
+    <string name="txt_user_shop_manage">店铺管理</string>
+    <string name="txt_user_shop_header_img">店铺头像</string>
+    <string name="txt_user_shop_name">店铺名称</string>
+    <string name="txt_user_shop_name_edit">编辑店铺名称</string>
+    <string name="txt_user_name_edit">编辑用户名称</string>
+    <string name="txt_user_account_num_edit">修改账户</string>
+    <string name="txt_user_name">姓名</string>
+    <string name="txt_user_accunt_manage">账号管理</string>
+    <string name="txt_user_sccount_info">账号信息</string>
+    <string name="txt_user_financial_manage">财务管理</string>
+    <string name="txt_user_more">更多</string>
+    <string name="txt_more_agreement">平台协议</string>
+    <string name="txt_more_about_me">关于我们</string>
+    <string name="txt_more_hotline">服务热线</string>
+
+    <string name="error_vertify_vercode">短信验证码无效</string>
+    <string name="error_user_tocken">登录信息失效，请重新登录！</string>
+    <string name="error_service">服务器错误</string>
+    <string name="error_account_not_exsit">账户不存在</string>
+    <string name="error_user_password">密码错误</string>
+    <string name="error_user_applying">尚未通过审核</string>
+    <string name="error_referee_not_exist">推荐人不存在</string>
+    <string name="error_account_already_exist">该手机号已被注册</string>
+    <string name="error_format_mobile">手机号格式不正确</string>
+    <string name="error_empty_mobile">请输入手机号</string>
+    <string name="error_empty_password">请输入密码</string>
+    <string name="error_empty_old_password">请输入原始密码</string>
+    <string name="error_empty_new_password">请输入新密码</string>
+    <string name="error_empty_password2">请输入确认密码</string>
+    <string name="error_ensure_password">两次输入的密码不一致</string>
+    <string name="error_empty_verCode">请输入收到的短信验证码</string>
+    <string name="error_faild_verCode">短信验证码错误</string>
+
+</resources>

@@ -1,0 +1,102 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.lanhi.vgo.driver"
+        minSdkVersion build_versions.minSdkVersion
+        targetSdkVersion build_versions.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
+    }
+    signingConfigs {
+        File signPropertiesFile = rootProject.file('sign/keystore.properties')
+        Properties properties = new Properties()
+        properties.load(new FileInputStream(signPropertiesFile))
+        release {
+            storeFile rootProject.file(properties['keystore'])
+            storePassword properties['storePassword']
+            keyAlias properties['keyAlias']
+            keyPassword properties['keyPassword']
+            //在apk文件后边生成版本号信息
+            android.applicationVariants.all {
+                variant ->
+                    variant.outputs.all {
+                        //outputFileName="miitapp_" + buildType.name + "_v" + defaultConfig.versionName + "_${releaseTime()}.apk";
+                        outputFileName = "vgo_" + buildType.name + "_v" + defaultConfig.versionName + ".apk";
+                    }
+            }
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation deps.junit
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation deps.espresso.core
+    // Support libraries
+    implementation deps.support.app_compat
+    implementation deps.support.design
+
+    // implementation deps.support.v4
+    // Architecture components
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.extensions
+    annotationProcessor deps.lifecycle.compiler
+    implementation deps.room.runtime
+    annotationProcessor deps.room.compiler
+    //glide
+    implementation (deps.glide.core){
+        exclude group: "com.android.support"
+    }
+    annotationProcessor deps.glide.processor
+    //router
+    implementation deps.arouter.runtime
+    annotationProcessor deps.arouter.compiler
+    //logutils
+    implementation deps.logger
+    //http
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+    implementation deps.retrofit.scalars
+    implementation deps.retrofit.adapter_rxjava2
+    implementation deps.okhttp.okhttp3
+    implementation deps.okhttp.okhttp3_logging_interceptor
+    // RxJava
+    implementation deps.rx_android
+    //google firebase
+    implementation deps.google.firebase
+    //refresh
+    implementation deps.smartrefresh.refreshlayout
+    implementation deps.smartrefresh.refreshheader
+    //pic  selector
+    implementation (deps.picture.selector){
+        exclude group: "com.android.support"
+    }
+    //permissionsdispatcher
+    implementation deps.hotchemi.dispatcher
+    annotationProcessor deps.hotchemi.processor
+}

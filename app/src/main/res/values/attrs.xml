@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Titlebar">
+        <attr name="title" format="string" />
+        <attr name="showLeftBack" format="boolean" />
+        <attr name="showRightTextButton" format="boolean" />
+        <attr name="rightButtonText" format="string" />
+    </declare-styleable>
+    <declare-styleable name="RSelector">
+        <attr name="leftTitle" format="string"/>
+        <attr name="rightTitle" format="string"/>
+        <attr name="checkItem" format="integer"/>
+    </declare-styleable>
+</resources>
