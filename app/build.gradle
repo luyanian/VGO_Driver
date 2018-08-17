@@ -51,7 +51,7 @@ android {
         enabled = true
     }
 }
-
+//resValue "string", "google_maps_key",(project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation deps.junit
@@ -88,7 +88,8 @@ dependencies {
     // RxJava
     implementation deps.rx_android
     //google firebase
-    implementation deps.google.firebase
+    implementation deps.firebase.core
+    implementation deps.firebase.messaging
     //refresh
     implementation deps.smartrefresh.refreshlayout
     implementation deps.smartrefresh.refreshheader
@@ -99,4 +100,5 @@ dependencies {
     //permissionsdispatcher
     implementation deps.hotchemi.dispatcher
     annotationProcessor deps.hotchemi.processor
+    implementation 'com.squareup.sdk:point-of-sale-sdk:2.0'
 }

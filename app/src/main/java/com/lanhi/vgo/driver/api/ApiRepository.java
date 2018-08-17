@@ -1,6 +1,6 @@
 package com.lanhi.vgo.driver.api;
 
-import com.lanhi.vgo.driver.api.response.AboutMeResponse;
+import com.lanhi.vgo.driver.api.response.WebInfoResponse;
 import com.lanhi.vgo.driver.api.response.BaseResponse;
 import com.lanhi.vgo.driver.api.response.GetCityResponse;
 import com.lanhi.vgo.driver.api.response.GetStateCityResponse;
@@ -16,7 +16,6 @@ import com.lanhi.vgo.driver.api.response.LoginResponse;
 
 import java.io.File;
 
-import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -98,8 +97,8 @@ public class ApiRepository {
         return observable;
     }
 
-    public static Observable<BaseResponse> cancelOrder(String str) {
-        Observable<BaseResponse> observable = ApiClient.getApiService().cancleOrder(Common.rsaEncrypt(str))
+    public static Observable<BaseResponse> grapOrder(String str) {
+        Observable<BaseResponse> observable = ApiClient.getApiService().grapOrder(Common.rsaEncrypt(str))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
         return observable;
@@ -143,8 +142,28 @@ public class ApiRepository {
         return observable;
     }
 
-    public static Observable<AboutMeResponse> getAboutMeInfo(String str) {
-        Observable<AboutMeResponse> observable = ApiClient.getApiService().getAboutMeInfo(Common.rsaEncrypt(str))
+    public static Observable<WebInfoResponse> getAboutMeInfo(String str) {
+        Observable<WebInfoResponse> observable = ApiClient.getApiService().getAboutMeInfo(Common.rsaEncrypt(str))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        return observable;
+    }
+
+    public static Observable<WebInfoResponse> getAgreenmentInfo(String str) {
+        Observable<WebInfoResponse> observable = ApiClient.getApiService().getAgreenmentInfo(Common.rsaEncrypt(str))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        return observable;
+    }
+    public static Observable<BaseResponse> getUpdateFMCToken(String str) {
+        Observable<BaseResponse> observable = ApiClient.getApiService().getUpdateFMCToken(Common.rsaEncrypt(str))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        return observable;
+    }
+
+    public static Observable<BaseResponse> getUpdateLatLng(String json) {
+        Observable<BaseResponse> observable = ApiClient.getApiService().updateLatLng(Common.rsaEncrypt(json))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
         return observable;

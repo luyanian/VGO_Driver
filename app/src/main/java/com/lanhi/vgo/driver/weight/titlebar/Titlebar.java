@@ -54,6 +54,14 @@ public class Titlebar extends RelativeLayout{
         binding.setOptions(titleBarOptions);
     }
 
+    public void setTitle(int text) {
+        setTitle(getResources().getString(text));
+    }
+
+    public void setTitle(String text) {
+        binding.setTitle(text);
+    }
+
     public void setPaddingEquesBarHeight() {
         ViewGroup.LayoutParams layoutParams =binding.rlTitleBar.getLayoutParams();
         layoutParams.height = layoutParams.height+ BarUtils.getStatusBarHeight();

@@ -1,7 +1,12 @@
 package com.lanhi.vgo.driver.mvvm.view.user;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +15,8 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.lanhi.ryon.utils.mutils.LogUtils;
+import com.lanhi.ryon.utils.mutils.ToastUtils;
 import com.lanhi.vgo.driver.BR;
 import com.lanhi.vgo.driver.BaseActivity;
 import com.lanhi.vgo.driver.R;
@@ -28,6 +35,11 @@ import com.lanhi.vgo.driver.mvvm.viewmodel.UserViewModel;
 import com.lanhi.vgo.driver.weight.selector.RSelectorChangeLisener;
 import com.lanhi.ryon.utils.mutils.SPUtils;
 import com.lanhi.ryon.utils.mutils.SpanUtils;
+import com.squareup.sdk.pos.ChargeRequest;
+import com.squareup.sdk.pos.PosClient;
+import com.squareup.sdk.pos.PosSdk;
+
+import static com.squareup.sdk.pos.CurrencyCode.USD;
 
 /**
  * Created by Administrator on 2018/3/21.
@@ -36,12 +48,14 @@ import com.lanhi.ryon.utils.mutils.SpanUtils;
 public class LoginActivity extends BaseActivity {
     private UserLoginActivityBinding binding;
     private UserViewModel viewModel;
+    private PosClient posClient;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.user_login_activity);
         viewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         binding.setData(viewModel.getLiveDate().getValue());
+        posClient = PosSdk.createClient(LoginActivity.this, "sq0idp-ibJRYv86sNY_uEcUkkRy8Q");
 
         binding.rselector.setRSelectorChangeListener(new RSelectorChangeLisener() {
             @Override
@@ -63,9 +77,9 @@ public class LoginActivity extends BaseActivity {
                 viewModel.login(new RObserver<LoginResponse>() {
                     @Override
                     public void onSuccess(LoginResponse loginResponse) {
-                        SPUtils.getInstance().put(SPKeys.TOKENID,loginResponse.getTokenid());
+                        SPUtils.getInstance().put(SPKeys.TOKENID, loginResponse.getTokenid());
                         UserInfoDataBean userInfoData = loginResponse.getData().get(0);
-                        SPUtils.getInstance().saveObject(SPKeys.USER_INFO,userInfoData);
+                        SPUtils.getInstance().saveObject(SPKeys.USER_INFO, userInfoData);
                         ARouter.getInstance().build("/main/main").navigation();
                     }
                 });
@@ -95,5 +109,41 @@ public class LoginActivity extends BaseActivity {
                 ARouter.getInstance().build("/user/password/forgot").navigation();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (data == null) {
+                ToastUtils.showShort("Square Point of Sale was uninstalled or crashed");
+                return;
+            }
+            if (resultCode == Activity.RESULT_OK) {
+                ChargeRequest.Success success = posClient.parseChargeSuccess(data);
+                String message = "Client transaction id: " + success.clientTransactionId;
+                ToastUtils.showShort(message);
+            } else {
+                ChargeRequest.Error error = posClient.parseChargeError(data);
+
+                if (error.code == ChargeRequest.ErrorCode.TRANSACTION_ALREADY_IN_PROGRESS) {
+                    String title = "A transaction is already in progress";
+                    String message = "Please complete the current transaction in Point of Sale.";
+                    new AlertDialog.Builder(this)
+                            .setTitle(title)
+                            .setMessage(message)
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override public void onClick(DialogInterface dialog, int which) {
+                                    // Some errors can only be fixed by launching Point of Sale
+                                    // from the Home screen.
+                                    posClient.launchPointOfSale();
+                                }
+                            })
+                            .show();
+                } else {
+                    ToastUtils.showShort("Error: " + error.code, error.debugDescription);
+                }
+            }
+        }
     }
 }

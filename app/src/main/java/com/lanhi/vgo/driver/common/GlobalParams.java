@@ -2,7 +2,7 @@ package com.lanhi.vgo.driver.common;
 
 public class GlobalParams {
 
-    public static final String USER_TYPE="consignor";
+    public static final String USER_TYPE="deliverer";
 
     /*短信验证码的使用范围*/
     public static class SCOPE{
@@ -16,8 +16,9 @@ public class GlobalParams {
         public static final String UNANSWEWD ="1"; //待抢单
         public static final String UNPICKUP="2";//待取货
         public static final String ON_THE_WAY ="3";//配送中
-        public static final String COMPLETE ="4";//已完成
+        public static final String UNEVALATED ="4";//待评价
         public static final String CANCLE ="5";//已取消
+        public static final String COMPLETE ="6";//已完成
     }
 
     /*支付方式*/

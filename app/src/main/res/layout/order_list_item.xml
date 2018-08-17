@@ -116,7 +116,7 @@
                 android:background="@drawable/shap_corner_25"
                 android:textColor="#a5a4ac"
                 android:gravity="center"
-                android:onClick="@{(v)->event.cancelOrder(v,data)}"
+                android:onClick="@{(v)->event.grapOrder(v,data)}"
                 android:text="@{Common.getBtnTextWithOrderState(data.order_state)}"/>
         </RelativeLayout>
     </LinearLayout>

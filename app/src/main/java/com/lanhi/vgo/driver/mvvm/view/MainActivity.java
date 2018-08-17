@@ -3,20 +3,37 @@ package com.lanhi.vgo.driver.mvvm.view;
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.gson.Gson;
+import com.lanhi.ryon.utils.mutils.LogUtils;
+import com.lanhi.ryon.utils.mutils.SPUtils;
 import com.lanhi.vgo.driver.BaseActivity;
 import com.lanhi.vgo.driver.R;
+import com.lanhi.vgo.driver.api.ApiRepository;
+import com.lanhi.vgo.driver.api.response.BaseResponse;
+import com.lanhi.vgo.driver.api.response.bean.UserInfoDataBean;
+import com.lanhi.vgo.driver.common.Common;
 import com.lanhi.vgo.driver.common.OnMenuSelectorListener;
+import com.lanhi.vgo.driver.common.RObserver;
+import com.lanhi.vgo.driver.common.SPKeys;
 import com.lanhi.vgo.driver.databinding.MainActivityBinding;
 import com.lanhi.vgo.driver.mvvm.view.order.OrderListFragment;
-import com.lanhi.vgo.driver.mvvm.view.order.OrderPublishFragment;
+import com.lanhi.vgo.driver.mvvm.view.order.OrderGrapFragment;
 import com.lanhi.vgo.driver.mvvm.view.user.UserFragment;
+
+import java.util.HashMap;
+import java.util.Map;
+
 @Route(path = "/main/main")
 public class MainActivity extends BaseActivity {
     MainActivityBinding binding;
@@ -30,14 +47,49 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
         fragmentManager = getSupportFragmentManager();
-        initTitleBar();
         initOnMenuSelectorListener();
         changeMenu(1);
+        handleMessage();
+        updateFmcTocken();
     }
 
-    private void initTitleBar() {
+    private void handleMessage() {
+        final Bundle bundle = getIntent().getExtras();
+        if(bundle==null){
+            return;
+        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(bundle.containsKey("orderId")){
+                    ARouter.getInstance().build("/order/detail").withString("order_code",bundle.getString("orderId")).navigation();
+                }else{
+
+                }
+            }
+        },200);
 
     }
+
+    private void updateFmcTocken() {
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        Log.d("firebase", "Refreshed token: " + refreshedToken);
+        UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance().readObject(SPKeys.USER_INFO);
+        if(userInfoData!=null) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("tokenid", Common.getToken());
+            map.put("phone", userInfoData.getAccount_number());
+            map.put("appkey", refreshedToken);
+            String json = new Gson().toJson(map);
+            ApiRepository.getUpdateFMCToken(json).subscribe(new RObserver<BaseResponse>() {
+                @Override
+                public void onSuccess(BaseResponse baseResponse) {
+                    LogUtils.d(baseResponse.getMsg());
+                }
+            });
+        }
+    }
+
 
     private void initOnMenuSelectorListener() {
         binding.setListener(new OnMenuSelectorListener(){
@@ -132,7 +184,7 @@ public class MainActivity extends BaseActivity {
         switch (vID) {
             case 0:
                 if (orderPushlishFragment == null) {
-                    orderPushlishFragment = new OrderPublishFragment();
+                    orderPushlishFragment = new OrderGrapFragment();
                     trans.add(R.id.content, orderPushlishFragment);
                 } else {
                     trans.show(orderPushlishFragment);

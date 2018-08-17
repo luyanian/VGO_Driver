@@ -10,11 +10,9 @@ import com.google.gson.Gson;
 import com.lanhi.vgo.driver.App;
 import com.lanhi.vgo.driver.R;
 import com.lanhi.vgo.driver.api.ApiRepository;
-import com.lanhi.vgo.driver.api.response.AboutMeResponse;
+import com.lanhi.vgo.driver.api.response.WebInfoResponse;
 import com.lanhi.vgo.driver.api.response.BaseResponse;
-import com.lanhi.vgo.driver.api.response.GetCityResponse;
 import com.lanhi.vgo.driver.api.response.GetStateCityResponse;
-import com.lanhi.vgo.driver.api.response.GetStatesResponse;
 import com.lanhi.vgo.driver.api.response.GetVertificationResponse;
 import com.lanhi.vgo.driver.api.response.HotlineResponse;
 import com.lanhi.vgo.driver.api.response.LoginResponse;
@@ -40,6 +38,7 @@ import static com.lanhi.vgo.driver.common.GlobalParams.USER_TYPE;
 public class UserViewModel extends AndroidViewModel {
     private MutableLiveData<UserData> mutableLiveData = new MutableLiveData<>();
     private MutableLiveData<HotlineResponse.DataBean> hotLineMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<String> aboutAgreenmentInfoMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<UserInfoResponse> userInfoResponseMutableLiveData = new MutableLiveData<>();
     public UserViewModel(@NonNull Application application) {
         super(application);
@@ -55,6 +54,9 @@ public class UserViewModel extends AndroidViewModel {
 
     public MutableLiveData<HotlineResponse.DataBean> getHotLineMutableLiveData() {
         return hotLineMutableLiveData;
+    }
+    public MutableLiveData<String> getAboutAgreenmentInfoMutableLiveData() {
+        return aboutAgreenmentInfoMutableLiveData;
     }
 
     public void getVerification(RObserver<GetVertificationResponse> rObserver,String scop) {
@@ -167,6 +169,7 @@ public class UserViewModel extends AndroidViewModel {
         map.put("method",userData.getCurrentItem()==0? GlobalParams.SIGNIN_TYPE.SIGNIN_WITH_PASSWORD: GlobalParams.SIGNIN_TYPE.SIGNIN_WITH_VERTIFY_CODE);
         map.put("password",userData.getPassword());
         map.put("smsCode",userData.getSmsCode());
+        map.put("usertype",USER_TYPE);
         String json = new Gson().toJson(map);
         ApiRepository.login(json).subscribe(observer);
     }
@@ -280,10 +283,25 @@ public class UserViewModel extends AndroidViewModel {
         Map map = new HashMap();
         map.put("tokenid",Common.getToken());
         String json = new Gson().toJson(map);
-        ApiRepository.getAboutMeInfo(json).subscribe(new RObserver<AboutMeResponse>() {
+        ApiRepository.getAboutMeInfo(json).subscribe(new RObserver<WebInfoResponse>() {
             @Override
-            public void onSuccess(AboutMeResponse aboutMeResponse) {
-
+            public void onSuccess(WebInfoResponse webInfoResponse) {
+                if(webInfoResponse.getData()!=null&&webInfoResponse.getData().size()>0&&webInfoResponse.getData().get(0)!=null) {
+                    aboutAgreenmentInfoMutableLiveData.setValue(webInfoResponse.getData().get(0).getInfo());
+                }
+            }
+        });
+    }
+    public void getAgreenmentInfo(){
+        Map map = new HashMap();
+        map.put("tokenid",Common.getToken());
+        String json = new Gson().toJson(map);
+        ApiRepository.getAgreenmentInfo(json).subscribe(new RObserver<WebInfoResponse>() {
+            @Override
+            public void onSuccess(WebInfoResponse webInfoResponse) {
+                if(webInfoResponse.getData()!=null&&webInfoResponse.getData().size()>0&&webInfoResponse.getData().get(0)!=null) {
+                    aboutAgreenmentInfoMutableLiveData.setValue(webInfoResponse.getData().get(0).getInfo());
+                }
             }
         });
     }

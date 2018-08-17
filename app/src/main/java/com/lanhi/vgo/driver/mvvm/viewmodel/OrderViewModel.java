@@ -97,7 +97,7 @@ public class OrderViewModel extends AndroidViewModel {
         Map map = new HashMap();
         UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance().readObject(SPKeys.USER_INFO);
         if(userInfoData!=null){
-            map.put("merchantid",userInfoData.getId());
+            map.put("distributorid",userInfoData.getId());
             map.put("order_state",order_state);
             map.put("tokenid", Common.getToken());
             map.put("pagenum",pagenum+"");
@@ -122,15 +122,20 @@ public class OrderViewModel extends AndroidViewModel {
             });
         }
     }
-
-    public void cancelOrderPublish(OrderListResponse.OrderListBean user,RObserver<BaseResponse> rObserver) {
-        if(user==null){
+    //抢单
+    public void grapOrder(OrderListResponse.OrderListBean orderListBean,RObserver<BaseResponse> rObserver) {
+        if(orderListBean==null){
+            return;
+        }
+        UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance().readObject(SPKeys.USER_INFO);
+        if(userInfoData==null){
             return;
         }
         Map map = new HashMap();
         map.put("tokenid", Common.getToken());
-        map.put("order_code",user.getOrder_code());
-        ApiRepository.cancelOrder(new Gson().toJson(map)).subscribe(rObserver);
+        map.put("order_code",orderListBean.getOrder_code());
+        map.put("distributorid",userInfoData.getId());
+        ApiRepository.grapOrder(new Gson().toJson(map)).subscribe(rObserver);
 
     }
 
@@ -145,6 +150,7 @@ public class OrderViewModel extends AndroidViewModel {
             }
         });
     }
+
     public MutableLiveData<OrderDetailResponse> getOrderDetailLiveData(){
         return orderDetailLiveData;
     }

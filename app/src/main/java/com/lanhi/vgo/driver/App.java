@@ -2,16 +2,24 @@ package com.lanhi.vgo.driver;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.lanhi.vgo.driver.common.Configs;
 import com.lanhi.ryon.utils.mutils.ActivityPools;
 import com.lanhi.ryon.utils.mutils.Utils;
+import com.lanhi.vgo.driver.location.LocationClient;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
@@ -25,6 +33,7 @@ import java.util.Locale;
 
 public class App extends Application {
     private static App app;
+    private LocationManager locationManager;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -127,4 +136,8 @@ public class App extends Application {
             });
         }
     }
+
+
+
+
 }

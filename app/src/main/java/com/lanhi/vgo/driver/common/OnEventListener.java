@@ -28,6 +28,7 @@ public class OnEventListener {
     public void viewUserAccunt(View v){}
     public void viewUserFinancial(View v){}
     public void viewUserMore(View v){}
+    public void viewWebView(View v,int flag){}
 
     public void viewUpdateShopName(View v,String shopeName){}
     public void updateShopImg(View v){}
@@ -37,4 +38,6 @@ public class OnEventListener {
     public void viewUserAccountInfo(View v){}
     public void viewPasswordEdit(View v){}
     public void onclickHotLine(View v,String phone){}
+    public void callDelevery(View v,String phone){}
+    public void grapOrder(View v, OrderListResponse.OrderListBean orderListBean){}
 }

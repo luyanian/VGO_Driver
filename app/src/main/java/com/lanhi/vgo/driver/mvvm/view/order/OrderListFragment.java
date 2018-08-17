@@ -55,10 +55,10 @@ public class OrderListFragment extends Fragment implements View.OnClickListener{
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));//这里用线性显示 类似于listview
         orderListAdapter = new OrderListAdapter(orderViewModel,new OnEventListener(){
             @Override
-            public void cancelOrder(View v, OrderListResponse.OrderListBean orderListBean) {
-                super.cancelOrder(v,orderListBean);
+            public void grapOrder(View v, OrderListResponse.OrderListBean orderListBean) {
+                super.grapOrder(v,orderListBean);
                 if(GlobalParams.ORDER_STATE.UNANSWEWD.equals(orderListBean.getOrder_state())){
-                    orderViewModel.cancelOrderPublish(orderListBean,new RObserver<BaseResponse>() {
+                    orderViewModel.grapOrder(orderListBean,new RObserver<BaseResponse>() {
                         @Override
                         public void onSuccess(BaseResponse baseResponse) {
                             binding.refreshLayout.autoRefresh();

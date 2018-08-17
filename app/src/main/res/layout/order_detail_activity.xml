@@ -2,9 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="com.lanhi.vgo.driver.common.Common"/>
         <variable
             name="data"
-            type="com.lanhi.vgo.driver.api.response.OrderDetailResponse"/>
+            type="com.lanhi.vgo.driver.api.response.OrderDetailResponse.DataBean"/>
+        <variable
+            name="listener"
+            type="com.lanhi.vgo.driver.common.OnEventListener"/>
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,8 +23,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/titlebar"
-            android:layout_above="@+id/rl_bottom">
+            android:layout_below="@+id/titlebar">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,31 +45,55 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/txt_order_state"
-                        android:textColor="@color/color_white"/>
+                        android:textColor="@color/color_white"
+                        android:text="@{Common.getOrderStateString(data.order_state)}"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:padding="16dp"
+                    android:paddingLeft="16dp"
                     android:background="#ffffff">
+
                     <TextView
                         android:id="@+id/txt_order_list_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:text="@string/txt_order_list_id"
+                        android:textColor="#a4a2ad" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/txt_order_list_id"
                         android:textColor="#a4a2ad"
-                        android:text="@string/txt_order_list_id"/>
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_centerVertical="true"-->
-                        <!--android:layout_toRightOf="@+id/txt_order_list_id"-->
-                        <!--android:textColor="#a4a2ad"-->
-                        <!--android:text="@{data.order_code}"/>-->
+                        android:text="@{data.order_code}"/>
+                    <RelativeLayout
+                        android:layout_width="90dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8dp"
+                        android:visibility="@{Common.getDeliveryViewVisible(data.order_state)}"
+                        android:onClick="@{v->listener.callDelevery(v,data.account_number)}">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:src="@drawable/btn_1"
+                            android:scaleType="centerInside"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:textColor="@color/color_white"
+                            android:textSize="14dp"
+                            android:text="@string/btn_order_call_delivery"/>
+                    </RelativeLayout>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:background="@drawable/shap_tiled_bg"
                     android:padding="16dp">
                     <TextView
                         android:layout_width="wrap_content"
@@ -74,15 +101,297 @@
                         android:layout_centerVertical="true"
                         android:text="@string/txt_distribution_information"/>
                 </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_order_shope_name"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{data.merchant}"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_order_pike_address"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{Common.getAddress(data.s_addressinfo,data.s_ctiyinfo,data.s_stateinfo)}"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:visibility="@{Common.isOrderFeeViewVisible(data.order_state)}">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_order_fee"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{data.order_fee}"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_order_driver_fee"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{data.distribution_fee}"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:visibility="@{Common.isReceiverViewVisible(data.order_state)}">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_order_receiver"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{data.goods_receipt_name}"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:visibility="@{Common.isReceiverViewVisible(data.order_state)}">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_order_receiver_tel"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{data.goods_receipt_tel}"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:visibility="@{Common.isReceiverViewVisible(data.order_state)}">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_order_receiver_address"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{Common.getAddress(data.s_addressinfo,data.s_ctiyinfo,data.s_stateinfo)}"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:visibility="@{Common.isOrderDriverNameViewVisible(data.order_state)}">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_order_driver_name"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:visibility="@{Common.getOrderEstimatePikeViewVisible(data.order_state)}">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_order_estimate_pike_time"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{Common.formatDateTime(data.yjqjtime)}"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:visibility="@{Common.getOrderPickTimeViewVisible(data.order_state)}">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_order_pike_time"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{Common.formatDateTime(data.picktime)}"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:visibility="@{Common.getOrderEstimateArriveViewVisible(data.order_state)}">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_order_estimate_arrive_time"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{Common.formatDateTime(data.yjsdtime)}"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:visibility="@{Common.getOrderArriveTimeViewVisible(data.order_state)}">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_order_arrive_time"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{Common.formatDateTime(data.endtime)}"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:visibility="@{Common.getPayTypeViewVisible(data.order_state)}">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_order_pay_type"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{Common.getPayTypeString(data.payment_method)}"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_order_note"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{data.remarks}"/>
+                </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/shap_tiled_bg"
+                    android:visibility="@{Common.getEvaluateViewVisible(data.order_state)}"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/txt_order_evaluate"/>
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:visibility="@{Common.getEvaluateViewVisible(data.order_state)}">
+                    <LinearLayout
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="22dp"
+                            android:textColor="#ff8d70"
+                            android:text="2.5"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_order_overall_score"/>
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="1dp"
+                        android:layout_height="50dp"
+                        android:background="#d5d5d5"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp">
+                        <RatingBar
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:isIndicator="true"
+                            android:numStars="5"
+                            style="?android:attr/ratingBarStyleIndicator"
+                            android:progressTint="#ff8d70"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="16dp"
+                            android:rating="2.5"
+                            android:stepSize="0.5" />
+                    </RelativeLayout>
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
-        <RelativeLayout
-            android:id="@+id/rl_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true">
 
-        </RelativeLayout>
     </RelativeLayout>
-
 </layout>

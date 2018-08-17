@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">VGO</string>
+    <string name="app_name">VGO Driver</string>
     <string name="sign_in">登录</string>
     <string name="sign_out">退出登录</string>
     <string name="regist">注册</string>
@@ -10,7 +10,7 @@
     <string name="password_found">找回密码</string>
     <string name="password_reset">重置密码</string>
     <string name="password_edit">修改密码</string>
-    <string name="menu_home_text">发布订单</string>
+    <string name="menu_home_text">订单任务</string>
     <string name="menu_order_text">订单</string>
     <string name="menu_my_text">我的</string>
     <string name="order_detail">订单详情</string>
@@ -19,6 +19,7 @@
     <string name="order_state_unanswewd">待抢单</string>
     <string name="order_state_unpickup">待取货</string>
     <string name="order_state_on_the_way">配送中</string>
+    <string name="order_state_unevaluate">待评价</string>
     <string name="order_state_complete">已完成</string>
 
     <string name="btn_sign_out">退出登录</string>
@@ -28,9 +29,13 @@
     <string name="btn_regist_and_sign_in">注册，并立即登录</string>
     <string name="btn_vertify_right_now">立即验证</string>
     <string name="btn_order_publish">发布订单</string>
+    <string name="btn_order_call_delivery">联系配送员</string>
     <string name="btn_order_publish_cancel">清空信息</string>
+    <string name="btn_order_list_grap">抢单</string>
     <string name="btn_order_list_publish_cancel">取消发布</string>
     <string name="btn_order_list_view_detail">查看详情</string>
+    <string name="btn_msg_dialog_cancle">关闭</string>
+    <string name="btn_msg_dialog_cancle_sure">确认</string>
 
     <string name="hint_phone_num">手机号</string>
     <string name="hint_password">密码</string>
@@ -68,6 +73,7 @@
     <string name="msg_vertify_your_account">验证您的账号</string>
     <string name="msg_commit_successful">提交成功</string>
     <string name="msg_vertify_account_success">已找到该账号，稍后将受到短信验证码，谨防泄漏！</string>
+    <string name="msg_location_provider_disable">请开启GPS,以确保您的位置实时更新！</string>
 
     <string name="txt_order_state">订单状态：</string>
     <string name="txt_order_list_id">订单编号：</string>
@@ -91,6 +97,26 @@
     <string name="txt_more_agreement">平台协议</string>
     <string name="txt_more_about_me">关于我们</string>
     <string name="txt_more_hotline">服务热线</string>
+
+    <string name="txt_order_shope_name">店铺名称:</string>
+    <string name="txt_order_pike_address">取货地址:</string>
+    <string name="txt_order_fee">订单金额:</string>
+    <string name="txt_order_receiver">收货人:</string>
+    <string name="txt_order_receiver_tel">联系方式:</string>
+    <string name="txt_order_receiver_address">收货地址:</string>
+    <string name="txt_order_driver_fee">配送费用:</string>
+    <string name="txt_order_driver_name">配送人员:</string>
+    <string name="txt_order_estimate_pike_time">预计取货时间:</string>
+    <string name="txt_order_pike_time">取货时间:</string>
+    <string name="txt_order_estimate_arrive_time">预计送达时间:</string>
+    <string name="txt_order_arrive_time">送达时间:</string>
+    <string name="txt_order_pay_type">支付方式:</string>
+    <string name="txt_order_pay_with_cash">现金:</string>
+    <string name="txt_order_pay_with_pos">刷卡:</string>
+    <string name="txt_order_unpay">未支付:</string>
+    <string name="txt_order_note">备注信息:</string>
+    <string name="txt_order_evaluate">星级评价:</string>
+    <string name="txt_order_overall_score">综合评分</string>
 
     <string name="error_vertify_vercode">短信验证码无效</string>
     <string name="error_user_tocken">登录信息失效，请重新登录！</string>
