@@ -92,7 +92,7 @@ public class Common {
                 stateString = App.getInstance().getResources().getString(R.string.btn_order_list_view_detail);
                 break;
             case GlobalParams.ORDER_STATE.UNANSWEWD:
-                stateString = App.getInstance().getResources().getString(R.string.btn_order_list_publish_cancel);
+                stateString = App.getInstance().getResources().getString(R.string.btn_order_list_publish_grap);
                 break;
             case GlobalParams.ORDER_STATE.UNPICKUP:
                 stateString = App.getInstance().getResources().getString(R.string.btn_order_list_view_detail);

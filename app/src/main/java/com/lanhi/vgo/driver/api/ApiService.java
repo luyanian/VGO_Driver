@@ -64,6 +64,10 @@ public interface ApiService{
     Observable<BaseResponse> publishOrder(@Field("str") String str);
 
     @FormUrlEncoded
+    @POST("appinterface/orderslist.shtml")
+    Observable<OrderListResponse> getGrapOderList(@Field("str") String str);
+
+    @FormUrlEncoded
     @POST("appinterface/orderslist_p.shtml")
     Observable<OrderListResponse> getOderList(@Field("str") String str);
 

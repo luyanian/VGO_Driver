@@ -90,6 +90,12 @@ public class ApiRepository {
         return observable;
     }
 
+    public static Observable<OrderListResponse> getGrapOrderList(String str){
+        Observable<OrderListResponse> observable = ApiClient.getApiService().getGrapOderList(Common.rsaEncrypt(str))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        return observable;
+    }
     public static Observable<OrderListResponse> getOrderList(String str){
         Observable<OrderListResponse> observable = ApiClient.getApiService().getOderList(Common.rsaEncrypt(str))
                 .subscribeOn(Schedulers.io())

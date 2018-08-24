@@ -81,6 +81,7 @@ public class LoginActivity extends BaseActivity {
                         UserInfoDataBean userInfoData = loginResponse.getData().get(0);
                         SPUtils.getInstance().saveObject(SPKeys.USER_INFO, userInfoData);
                         ARouter.getInstance().build("/main/main").navigation();
+                        finish();
                     }
                 });
             }

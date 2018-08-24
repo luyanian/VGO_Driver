@@ -17,6 +17,7 @@ public class StateCityData {
     private String name;
     private String zipCode;
     private String stateId;
+    private String selecteCityId;
     private int type;
 
     public StateCityData() {
@@ -60,6 +61,14 @@ public class StateCityData {
 
     public void setStateId(String stateId) {
         this.stateId = stateId;
+    }
+
+    public String getSelecteCityId() {
+        return selecteCityId;
+    }
+
+    public void setSelecteCityId(String selecteCityId) {
+        this.selecteCityId = selecteCityId;
     }
 
     public int getType() {

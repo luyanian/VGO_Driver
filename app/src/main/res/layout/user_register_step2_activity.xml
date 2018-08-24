@@ -81,7 +81,7 @@
                     android:singleLine="true"
                     android:textSize="16dp"
                     android:inputType="number"
-                    android:onTextChanged="@{stateCityViewModel::onEditTextChanged}"
+                    android:onTextChanged="@{stateCityViewModel::onConsignorZipcodTextChanged}"
                     android:text="@={data.zipCode}"
                     android:textColor="@color/color_text"/>
                 <EditText
@@ -117,11 +117,11 @@
                             android:layout_alignParentRight="true"
                             android:src="@drawable/icon_duihao"/>
                         <android.support.v7.widget.AppCompatSpinner
-                            android:id="@+id/spiner_state"
+                            android:id="@+id/spiner_consignor_state"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"
-                            bind:selectedPlanet="@={stateCityViewModel.observableSelectedState}"
+                            bind:selectedPlanet="@={stateCityViewModel.observableSelectedConsignorState}"
                             app:adapter="@{stateAdapter}"/>
                     </RelativeLayout>
                     <RelativeLayout
@@ -138,11 +138,11 @@
                             android:layout_alignParentRight="true"
                             android:src="@drawable/icon_duihao"/>
                         <android.support.v7.widget.AppCompatSpinner
-                            android:id="@+id/city_spiner"
+                            android:id="@+id/spiner_consignor_city"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"
-                            bind:selectedPlanet="@={stateCityViewModel.observableSelectedCity}"
+                            bind:selectedPlanet="@={stateCityViewModel.observableSelectedConsignorCity}"
                             app:adapter="@{cityAdapter}"/>
                     </RelativeLayout>
                 </LinearLayout>

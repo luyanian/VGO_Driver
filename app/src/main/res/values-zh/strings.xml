@@ -32,7 +32,7 @@
     <string name="btn_order_call_delivery">联系配送员</string>
     <string name="btn_order_publish_cancel">清空信息</string>
     <string name="btn_order_list_grap">抢单</string>
-    <string name="btn_order_list_publish_cancel">取消发布</string>
+    <string name="btn_order_list_publish_grap">立即抢单</string>
     <string name="btn_order_list_view_detail">查看详情</string>
     <string name="btn_msg_dialog_cancle">关闭</string>
     <string name="btn_msg_dialog_cancle_sure">确认</string>

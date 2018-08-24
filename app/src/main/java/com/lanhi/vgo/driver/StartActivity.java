@@ -20,6 +20,7 @@ public class StartActivity extends BaseActivity {
                 @Override
                 public void run() {
                     ARouter.getInstance().build("/user/login").navigation();
+                    finish();
                 }
             },200);
         }else{
@@ -27,6 +28,7 @@ public class StartActivity extends BaseActivity {
                 @Override
                 public void run() {
                     ARouter.getInstance().build("/main/main").with(getIntent().getExtras()).navigation();
+                    finish();
                 }
             },200);
         }

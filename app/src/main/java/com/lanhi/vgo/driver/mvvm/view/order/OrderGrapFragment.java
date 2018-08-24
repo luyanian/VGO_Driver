@@ -57,16 +57,12 @@ public class OrderGrapFragment extends Fragment {
             @Override
             public void grapOrder(View v, OrderListResponse.OrderListBean orderListBean) {
                 super.grapOrder(v,orderListBean);
-                if(GlobalParams.ORDER_STATE.UNANSWEWD.equals(orderListBean.getOrder_state())){
-                    orderViewModel.grapOrder(orderListBean,new RObserver<BaseResponse>() {
-                        @Override
-                        public void onSuccess(BaseResponse baseResponse) {
-                            binding.refreshLayout.autoRefresh();
-                        }
-                    });
-                }else{
-                    ARouter.getInstance().build("/order/detail").withString("order_code",orderListBean.getOrder_code()).navigation();
-                }
+                orderViewModel.grapOrder(orderListBean,new RObserver<BaseResponse>() {
+                    @Override
+                    public void onSuccess(BaseResponse baseResponse) {
+                        binding.refreshLayout.autoRefresh();
+                    }
+                });
             }
 
             @Override
@@ -80,14 +76,14 @@ public class OrderGrapFragment extends Fragment {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 pageNum=1;
-                orderViewModel.loadOrderList(GlobalParams.ORDER_STATE.UNANSWEWD,pageNum);
+                orderViewModel.loadGrapOrderList(pageNum);
                 refreshlayout.finishRefresh(500/*,false*/);
             }
         });
         binding.refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshlayout) {
-                orderViewModel.loadOrderList(GlobalParams.ORDER_STATE.UNANSWEWD,++pageNum);
+                orderViewModel.loadGrapOrderList(++pageNum);
                 refreshlayout.finishLoadMore(500/*,false*/);
             }
         });
@@ -97,6 +93,7 @@ public class OrderGrapFragment extends Fragment {
                 orderListAdapter.notifyData(orderListBeans);
             }
         });
+        binding.refreshLayout.autoRefresh();
     }
 
     private void initEventListener() {
