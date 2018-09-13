@@ -5,12 +5,16 @@ import android.view.View;
 import com.lanhi.ryon.utils.mutils.TimeUtils;
 import com.lanhi.vgo.driver.App;
 import com.lanhi.vgo.driver.R;
+import com.lanhi.vgo.driver.api.ApiRepository;
 import com.lanhi.vgo.driver.api.RSAEncryptor;
 import com.lanhi.ryon.utils.mutils.RegexUtils;
 import com.lanhi.ryon.utils.mutils.SPUtils;
+import com.lanhi.vgo.driver.api.response.DistanceMatrixResponse;
 import com.lanhi.vgo.driver.api.response.OrderDetailResponse;
 import com.orhanobut.logger.Logger;
 import java.util.Date;
+
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by Administrator on 2018/3/26.
@@ -245,6 +249,16 @@ public class Common {
             return "Your cash application has not been approved,click to see the reason.";
         }
         return "Click to see the details.";
+    }
+
+    //google map  计算两地之间的距离
+    public static void getDistance(String from,String to,Consumer<DistanceMatrixResponse> consumer){
+        String url ="https://maps.googleapis.com/maps/api/distancematrix/json?origins="
+                +from
+                +"&destinations="
+                +to
+                +"&departure_time=now&key=AIzaSyBzeTTg-Jm3WrfOzjeezHQHwhBcnZejzYI";
+        ApiRepository.getDistanceMetrix(url).subscribe(consumer);
     }
 
 }

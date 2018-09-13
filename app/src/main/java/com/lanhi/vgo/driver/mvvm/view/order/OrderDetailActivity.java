@@ -12,11 +12,14 @@ import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.lanhi.ryon.utils.mutils.PhoneUtils;
+import com.lanhi.ryon.utils.mutils.SPUtils;
 import com.lanhi.ryon.utils.mutils.ToastUtils;
 import com.lanhi.vgo.driver.BaseActivity;
 import com.lanhi.vgo.driver.R;
 import com.lanhi.vgo.driver.api.response.OrderDetailResponse;
+import com.lanhi.vgo.driver.api.response.bean.UserInfoDataBean;
 import com.lanhi.vgo.driver.common.OnEventListener;
+import com.lanhi.vgo.driver.common.SPKeys;
 import com.lanhi.vgo.driver.databinding.OrderDetailActivityBinding;
 import com.lanhi.vgo.driver.mvvm.viewmodel.OrderViewModel;
 import com.lanhi.vgo.driver.weight.titlebar.TitleBarOptions;
@@ -62,13 +65,5 @@ public class OrderDetailActivity extends BaseActivity {
             }
         });
         orderViewModel.getOrderDetail(order_code);
-//        ChargeRequest request = new ChargeRequest.Builder(1, USD).build();
-//        try {
-//            Intent intent = posClient.createChargeIntent(request);
-//            startActivityForResult(intent, 1);
-//        } catch (ActivityNotFoundException e) {
-//            ToastUtils.showShort("Square Point of Sale is not installed");
-//            posClient.openPointOfSalePlayStoreListing();
-//        }
     }
 }

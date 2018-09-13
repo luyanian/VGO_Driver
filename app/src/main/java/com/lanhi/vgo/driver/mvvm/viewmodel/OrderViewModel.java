@@ -3,24 +3,34 @@ package com.lanhi.vgo.driver.mvvm.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
+import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.lanhi.vgo.driver.App;
 import com.lanhi.vgo.driver.api.ApiRepository;
 import com.lanhi.vgo.driver.api.response.BaseResponse;
-import com.lanhi.vgo.driver.api.response.LoginResponse;
+import com.lanhi.vgo.driver.api.response.DistanceFeeResponse;
+import com.lanhi.vgo.driver.api.response.DistanceMatrixResponse;
 import com.lanhi.vgo.driver.api.response.OrderDetailResponse;
 import com.lanhi.vgo.driver.api.response.OrderListResponse;
 import com.lanhi.vgo.driver.api.response.bean.UserInfoDataBean;
 import com.lanhi.vgo.driver.common.Common;
 import com.lanhi.vgo.driver.common.RObserver;
 import com.lanhi.vgo.driver.common.SPKeys;
+import com.lanhi.vgo.driver.location.LocationClient;
 import com.lanhi.vgo.driver.mvvm.model.OrderData;
 import com.lanhi.ryon.utils.mutils.SPUtils;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.reactivex.functions.Consumer;
 
 public class OrderViewModel extends AndroidViewModel {
 
@@ -152,26 +162,52 @@ public class OrderViewModel extends AndroidViewModel {
         }
     }
     //抢单
-    public void grapOrder(OrderListResponse.OrderListBean orderListBean,RObserver<BaseResponse> rObserver) {
-        if(orderListBean==null){
+    public void grapOrder(final OrderListResponse.OrderListBean orderListBean, final RObserver<BaseResponse> rObserver) {
+        String latitude = SPUtils.getInstance().getString(SPKeys.DEVICE_CURRENT_LOCATION.LAT);
+        String longitude = SPUtils.getInstance().getString(SPKeys.DEVICE_CURRENT_LOCATION.LNG);
+        if(orderListBean==null||TextUtils.isEmpty(orderListBean.getS_stateinfo())||TextUtils.isEmpty(orderListBean.getS_ctiyinfo())
+                ||TextUtils.isEmpty(orderListBean.getS_addressinfo())||TextUtils.isEmpty(latitude)||TextUtils.isEmpty(longitude)){
             return;
         }
-        UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance().readObject(SPKeys.USER_INFO);
+        final UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance().readObject(SPKeys.USER_INFO);
         if(userInfoData==null){
             return;
         }
-        Map map = new HashMap();
-        map.put("tokenid", Common.getToken());
-        map.put("order_code",orderListBean.getOrder_code());
-        map.put("distributorid",userInfoData.getId());
-        ApiRepository.grapOrder(new Gson().toJson(map)).subscribe(rObserver);
+
+        String from = latitude+","+longitude;
+        String to = orderListBean.getS_stateinfo()+orderListBean.getS_ctiyinfo()+orderListBean.getS_addressinfo();
+        Common.getDistance(from, to, new Consumer<DistanceMatrixResponse>() {
+            @Override
+            public void accept(DistanceMatrixResponse distanceMatrixResponse) throws Exception {
+                if(distanceMatrixResponse.getRows()!=null&&distanceMatrixResponse.getRows().size()>0
+                        &&distanceMatrixResponse.getRows().get(0)!=null
+                        &&distanceMatrixResponse.getRows().get(0).getElements()!=null
+                        &&distanceMatrixResponse.getRows().get(0).getElements().size()>0
+                        &&distanceMatrixResponse.getRows().get(0).getElements().get(0)!=null
+                        &&distanceMatrixResponse.getRows().get(0).getElements().get(0).getDuration()!=null){
+                    final DistanceMatrixResponse.RowsBean.ElementsBean.DurationBean durationBean = distanceMatrixResponse.getRows()
+                            .get(0).getElements().get(0).getDuration();
+                    final DistanceMatrixResponse.RowsBean.ElementsBean.DistanceBean distanceBean = distanceMatrixResponse.getRows()
+                            .get(0).getElements().get(0).getDistance();
+                    if(durationBean.getValue()>0){
+                        Map map = new HashMap();
+                        map.put("tokenid", Common.getToken());
+                        map.put("order_code",orderListBean.getOrder_code());
+                        map.put("distributorid",userInfoData.getId());
+                        map.put("time_value",durationBean.getText());
+                        ApiRepository.grapOrder(new Gson().toJson(map)).subscribe(rObserver);
+                    }
+                }
+            }
+        });
+
 
     }
 
     public void getOrderDetail(String order_code) {
         Map map = new HashMap();
         map.put("tokenid", Common.getToken());
-        map.put("order_code",order_code);
+        map.put("ordercode",order_code);
         ApiRepository.getOrderDetail(new Gson().toJson(map)).subscribe(new RObserver<OrderDetailResponse>() {
             @Override
             public void onSuccess(OrderDetailResponse orderDetailResponse) {

@@ -13,9 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.lanhi.vgo.driver.BaseActivity;
 import com.lanhi.vgo.driver.R;
 import com.lanhi.vgo.driver.adapter.OrderListAdapter;
 import com.lanhi.vgo.driver.api.response.BaseResponse;
@@ -24,7 +22,6 @@ import com.lanhi.vgo.driver.common.GlobalParams;
 import com.lanhi.vgo.driver.common.OnEventListener;
 import com.lanhi.vgo.driver.common.RObserver;
 import com.lanhi.vgo.driver.databinding.OrderListFragmentBinding;
-import com.lanhi.vgo.driver.mvvm.model.OrderData;
 import com.lanhi.vgo.driver.mvvm.viewmodel.OrderViewModel;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -58,12 +55,12 @@ public class OrderListFragment extends Fragment implements View.OnClickListener{
             public void grapOrder(View v, OrderListResponse.OrderListBean orderListBean) {
                 super.grapOrder(v,orderListBean);
                 if(GlobalParams.ORDER_STATE.UNANSWEWD.equals(orderListBean.getOrder_state())){
-                    orderViewModel.grapOrder(orderListBean,new RObserver<BaseResponse>() {
-                        @Override
-                        public void onSuccess(BaseResponse baseResponse) {
-                            binding.refreshLayout.autoRefresh();
-                        }
-                    });
+//                    orderViewModel.grapOrder(orderListBean, location, new RObserver<BaseResponse>() {
+//                        @Override
+//                        public void onSuccess(BaseResponse baseResponse) {
+//                            binding.refreshLayout.autoRefresh();
+//                        }
+//                    });
                 }else{
                     ARouter.getInstance().build("/order/detail").withString("order_code",orderListBean.getOrder_code()).navigation();
                 }

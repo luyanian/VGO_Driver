@@ -29,7 +29,8 @@
     <string name="btn_regist_and_sign_in">注册，并立即登录</string>
     <string name="btn_vertify_right_now">立即验证</string>
     <string name="btn_order_publish">发布订单</string>
-    <string name="btn_order_call_delivery">联系配送员</string>
+    <string name="btn_order_call_consignor">联系商家</string>
+    <string name="btn_order_call_user">联系收货人</string>
     <string name="btn_order_publish_cancel">清空信息</string>
     <string name="btn_order_list_grap">抢单</string>
     <string name="btn_order_list_publish_grap">立即抢单</string>
@@ -74,6 +75,7 @@
     <string name="msg_commit_successful">提交成功</string>
     <string name="msg_vertify_account_success">已找到该账号，稍后将受到短信验证码，谨防泄漏！</string>
     <string name="msg_location_provider_disable">请开启GPS,以确保您的位置实时更新！</string>
+    <string name="msg_dialog_grap_tip">确认抢单吗？</string>
 
     <string name="txt_order_state">订单状态：</string>
     <string name="txt_order_list_id">订单编号：</string>

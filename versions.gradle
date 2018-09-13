@@ -164,7 +164,7 @@
     ext.deps = deps
 
     def build_versions = [:]
-    build_versions.minSdkVersion = 15
+    build_versions.minSdkVersion = 16
     build_versions.compileSdkVersion = 26
     build_versions.targetSdkVersion = 27
     build_versions.buildToolsVersion = "27.0.0"

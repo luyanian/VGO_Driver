@@ -1,4 +1,5 @@
 package com.lanhi.vgo.driver.api.response;
+import java.sql.Time;
 import java.util.List;
 
 public class OrderDetailResponse extends BaseResponse {
@@ -16,39 +17,40 @@ public class OrderDetailResponse extends BaseResponse {
     public static class DataBean {
         /**
          * endtime : null
-         * f_postal_code : 112
-         * order_state : 6
-         * s_postal_code : 112
+         * f_postal_code : 333
+         * order_state : 2
+         * s_postal_code : 123
          * f_ctiyinfo : 4
-         * remarks : 悲咒
-         * s_stateinfo : null
+         * remarks :
+         * s_stateinfo : 天津市
          * paytime : null
-         * order_code : DD201805041720241678
+         * order_code : DD201808231728133933
          * m_evaluation_grade : null
-         * createtime : {"date":4,"day":5,"hours":17,"minutes":20,"month":4,"nanos":0,"seconds":24,"time":1525425624000,"timezoneOffset":-480,"year":118}
-         * id : 13
-         * s_latitude : 39.0936501
-         * s_longitude : 117.1299332
-         * s_ctiyinfo : null
-         * goods_receipt_tel : 测控
-         * f_tel : 18722423376
-         * distributor : 11
+         * createtime : {"date":23,"day":4,"hours":17,"minutes":28,"month":7,"nanos":0,"seconds":13,"time":1535016493000,"timezoneOffset":-480,"year":118}
+         * id : 182
+         * s_latitude : 39.136449
+         * s_longitude : 117.189175
+         * s_ctiyinfo : 天津市
+         * goods_receipt_tel : 15011105689
+         * f_tel : 15011105689
+         * distributor : 14
          * yjqjtime : null
-         * subsidy_fee : 1
+         * subsidy_fee : null
          * f_stateinfo : 3
-         * account_number : 18233132764
-         * f_name : 陆
-         * goods_receipt_name : 测控
-         * merchant : 13
-         * order_fee : 10
-         * distribution_fee : 11
-         * picktime : {"date":21,"day":4,"hours":17,"minutes":4,"month":5,"nanos":0,"seconds":23,"time":1529571863000,"timezoneOffset":-480,"year":118}
-         * distribution_list : 配送平凡那
-         * s_addressinfo : 南开区学府创新园
-         * d_evaluation_grade : 5
-         * f_addressinfo : 榕苑路5号留学生创业园
+         * account_number : 17602208738
+         * f_name : 小白
+         * goods_receipt_name : 我
+         * merchant : 15
+         * order_fee : 200
+         * shop_name : 这是什么
+         * distribution_fee : 53.92
+         * picktime : null
+         * distribution_list : jjj
+         * s_addressinfo : 西青区精武镇国兴家园
+         * d_evaluation_grade : null
+         * f_addressinfo : 天津市和平区南马路11号
          * yjsdtime : null
-         * payment_method : 1
+         * payment_method : 0
          */
 
         private TimeBean endtime;
@@ -60,9 +62,9 @@ public class OrderDetailResponse extends BaseResponse {
         private String s_stateinfo;
         private TimeBean paytime;
         private String order_code;
-        private Object m_evaluation_grade;
+        private String m_evaluation_grade;
         private TimeBean createtime;
-        private String id;
+        private int id;
         private String s_latitude;
         private String s_longitude;
         private String s_ctiyinfo;
@@ -77,11 +79,13 @@ public class OrderDetailResponse extends BaseResponse {
         private String goods_receipt_name;
         private String merchant;
         private String order_fee;
+        private String user_name;
+        private String shop_name;
         private String distribution_fee;
         private TimeBean picktime;
         private String distribution_list;
         private String s_addressinfo;
-        private int d_evaluation_grade;
+        private String d_evaluation_grade;
         private String f_addressinfo;
         private TimeBean yjsdtime;
         private String payment_method;
@@ -158,11 +162,11 @@ public class OrderDetailResponse extends BaseResponse {
             this.order_code = order_code;
         }
 
-        public Object getM_evaluation_grade() {
+        public String getM_evaluation_grade() {
             return m_evaluation_grade;
         }
 
-        public void setM_evaluation_grade(Object m_evaluation_grade) {
+        public void setM_evaluation_grade(String m_evaluation_grade) {
             this.m_evaluation_grade = m_evaluation_grade;
         }
 
@@ -174,11 +178,11 @@ public class OrderDetailResponse extends BaseResponse {
             this.createtime = createtime;
         }
 
-        public String getId() {
+        public int getId() {
             return id;
         }
 
-        public void setId(String id) {
+        public void setId(int id) {
             this.id = id;
         }
 
@@ -294,6 +298,22 @@ public class OrderDetailResponse extends BaseResponse {
             this.order_fee = order_fee;
         }
 
+        public String getUser_name() {
+            return user_name;
+        }
+
+        public void setUser_name(String user_name) {
+            this.user_name = user_name;
+        }
+
+        public String getShop_name() {
+            return shop_name;
+        }
+
+        public void setShop_name(String shop_name) {
+            this.shop_name = shop_name;
+        }
+
         public String getDistribution_fee() {
             return distribution_fee;
         }
@@ -326,11 +346,11 @@ public class OrderDetailResponse extends BaseResponse {
             this.s_addressinfo = s_addressinfo;
         }
 
-        public int getD_evaluation_grade() {
+        public String getD_evaluation_grade() {
             return d_evaluation_grade;
         }
 
-        public void setD_evaluation_grade(int d_evaluation_grade) {
+        public void setD_evaluation_grade(String d_evaluation_grade) {
             this.d_evaluation_grade = d_evaluation_grade;
         }
 
@@ -360,14 +380,14 @@ public class OrderDetailResponse extends BaseResponse {
 
         public static class TimeBean {
             /**
-             * date : 4
-             * day : 5
+             * date : 23
+             * day : 4
              * hours : 17
-             * minutes : 20
-             * month : 4
+             * minutes : 28
+             * month : 7
              * nanos : 0
-             * seconds : 24
-             * time : 1525425624000
+             * seconds : 13
+             * time : 1535016493000
              * timezoneOffset : -480
              * year : 118
              */

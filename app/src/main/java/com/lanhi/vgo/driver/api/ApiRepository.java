@@ -1,5 +1,7 @@
 package com.lanhi.vgo.driver.api;
 
+import com.lanhi.vgo.driver.api.response.DistanceFeeResponse;
+import com.lanhi.vgo.driver.api.response.DistanceMatrixResponse;
 import com.lanhi.vgo.driver.api.response.WebInfoResponse;
 import com.lanhi.vgo.driver.api.response.BaseResponse;
 import com.lanhi.vgo.driver.api.response.GetCityResponse;
@@ -182,6 +184,20 @@ public class ApiRepository {
         MultipartBody.Part useridPart = MultipartBody.Part.createFormData("userid", userid);
 
         Observable<UploadFileResponse> observable = ApiClient.getApiService().uploadShopImg(myFilePart,tokenidPart,useridPart)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        return observable;
+    }
+
+    public static Observable<DistanceMatrixResponse> getDistanceMetrix(String url) {
+        Observable<DistanceMatrixResponse> observable = ApiClient.getApiService().getDistanceMetrix(url)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        return observable;
+    }
+
+    public static Observable<DistanceFeeResponse> getDistanceFee(String str) {
+        Observable<DistanceFeeResponse> observable = ApiClient.getApiService().getDistanceFee(Common.rsaEncrypt(str))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
         return observable;

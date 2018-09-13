@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <com.lanhi.vgo.weight.titlebar.Titlebar
+        <com.lanhi.vgo.driver.weight.titlebar.Titlebar
             android:id="@+id/titlebar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
                             android:layout_centerInParent="true"
                             android:textColor="@color/color_white"
                             android:textSize="14dp"
-                            android:text="@string/btn_order_call_delivery"/>
+                            android:text="@string/btn_order_call_consignor"/>
                     </RelativeLayout>
                 </RelativeLayout>
                 <RelativeLayout
@@ -231,7 +231,8 @@
                         android:text="@string/txt_order_driver_name"/>
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:text="@{data.user_name}"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"

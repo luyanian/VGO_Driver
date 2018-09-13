@@ -1,9 +1,12 @@
 package com.lanhi.vgo.driver.mvvm.view;
 
+import android.Manifest;
 import android.arch.lifecycle.MutableLiveData;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -27,12 +30,18 @@ import com.lanhi.vgo.driver.common.OnMenuSelectorListener;
 import com.lanhi.vgo.driver.common.RObserver;
 import com.lanhi.vgo.driver.common.SPKeys;
 import com.lanhi.vgo.driver.databinding.MainActivityBinding;
+import com.lanhi.vgo.driver.dialog.DialogOptions;
+import com.lanhi.vgo.driver.dialog.DialogUtils;
+import com.lanhi.vgo.driver.location.LocationClient;
 import com.lanhi.vgo.driver.mvvm.view.order.OrderListFragment;
 import com.lanhi.vgo.driver.mvvm.view.order.OrderGrapFragment;
 import com.lanhi.vgo.driver.mvvm.view.user.UserFragment;
+import com.luck.picture.lib.permissions.RxPermissions;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import io.reactivex.functions.Consumer;
 
 @Route(path = "/main/main")
 public class MainActivity extends BaseActivity {
@@ -47,10 +56,40 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
         fragmentManager = getSupportFragmentManager();
+        startLocation();
         initOnMenuSelectorListener();
         changeMenu(1);
         handleMessage();
         updateFmcTocken();
+    }
+
+    private void startLocation() {
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION).subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) throws Exception {
+                if(aBoolean){
+                     LocationClient.getInstance().startLocationListener();
+                }else{
+                    DialogUtils.getInstance()
+                            .createMsgTipDialog(MainActivity.this)
+                            .setMsg(R.string.msg_location_provider_disable)
+                            .setDialogOptons(new DialogOptions(){
+                                @Override
+                                public void sure(View v) {
+                                    super.sure(v);
+                                    Intent i = new Intent();
+                                    i.setAction(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                    startActivity(i);
+                                }
+                                @Override
+                                public void cancle(View v) {
+                                    super.cancle(v);
+                                }
+                            });
+                }
+            }
+        });
     }
 
     private void handleMessage() {
