@@ -7,7 +7,6 @@
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="161dp"
             android:background="@drawable/shap_fillet_white"
             android:orientation="vertical">
             <TextView
@@ -22,6 +21,7 @@
                 android:textColor="@color/colorPrimary"/>
 
             <LinearLayout
+                android:id="@+id/ll_options"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:layout_gravity="bottom"

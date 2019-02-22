@@ -17,44 +17,44 @@
         <com.lanhi.vgo.driver.weight.titlebar.Titlebar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:title="@string/menu_my_text"/>
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:padding="16dp"
+            android:layout_height="200dp"
+            android:background="@drawable/pic_wddi"
+            android:orientation="vertical"
             android:onClick="@{event::viewUserInfo}"
-            android:background="@drawable/shap_tiled_bg">
-            <ImageView
-                android:id="@+id/img_pic"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_centerVertical="true"
-                app:imageUrl="@{data.img_url}"
-                app:error="@{@drawable/pic_tx}"
-                app:placeHolder="@{@drawable/pic_tx}"/>
-                <TextView
-                    android:id="@+id/tv_user_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#ff9b4e"
-                    android:layout_marginLeft="10dp"
-                    android:layout_alignTop="@+id/img_pic"
-                    android:layout_toRightOf="@+id/img_pic"
-                    android:text="@{data.user_name}"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#ff9b4e"
-                    android:layout_alignLeft="@+id/tv_user_name"
-                    android:layout_below="@+id/tv_user_name"
-                    android:layout_marginTop="10dp"
-                    android:text="@{Common.getSecurityPhoneNum(data.account_number)}"/>
-        </RelativeLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="#f2f2f2"
-            android:gravity="center_vertical"/>
+            android:gravity="center">
+            <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/shap_oval_white">
+                <ImageView
+                    android:layout_width="98dp"
+                    android:layout_height="98dp"
+                    android:scaleType="fitXY"
+                    android:adjustViewBounds="true"
+                    app:imageUrl="@{data.img_url}"
+                    app:error="@{@drawable/pic_tx}"
+                    app:placeHolder="@{@drawable/pic_tx}"/>
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="#ffffff"
+                android:text="@{data.user_name}"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:textColor="#ffffff"
+                android:text="@{Common.getSecurityPhoneNum(data.account_number)}"/>
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -76,12 +76,6 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/icon_arrow_you"/>
         </RelativeLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="#f2f2f2"
-            android:gravity="center_vertical"/>
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -89,10 +83,19 @@
             android:paddingRight="16dp"
             android:onClick="@{event::viewUserAccunt}"
             android:background="@drawable/shap_tiled_bg">
+            <ImageView
+                android:id="@+id/img_zhanghu"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_zhanghu"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/img_zhanghu"
+                android:layout_marginLeft="5dp"
                 android:text="@string/txt_user_accunt_manage"/>
             <ImageView
                 android:layout_width="wrap_content"
@@ -101,11 +104,6 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/icon_arrow_you"/>
         </RelativeLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="#f2f2f2"
-            android:gravity="center_vertical"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -114,10 +112,19 @@
             android:paddingRight="16dp"
             android:onClick="@{event::viewUserFinancial}"
             android:background="@drawable/shap_tiled_bg">
+            <ImageView
+                android:id="@+id/img_caiwu"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_xieyi"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/img_caiwu"
+                android:layout_marginLeft="5dp"
                 android:text="@string/txt_user_financial_manage"/>
             <ImageView
                 android:layout_width="wrap_content"
@@ -126,12 +133,90 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/icon_arrow_you"/>
         </RelativeLayout>
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="#f2f2f2"
-            android:gravity="center_vertical"/>
-
+            android:layout_height="45dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:onClick="@{event::viewServiceScope}"
+            android:background="@drawable/shap_tiled_bg">
+            <ImageView
+                android:id="@+id/img_fuwufanwei"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_scope"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/img_fuwufanwei"
+                android:layout_marginLeft="5dp"
+                android:text="@string/txt_user_service_scope"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_arrow_you"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:onClick="@{event::viewMyScore}"
+            android:background="@drawable/shap_tiled_bg">
+            <ImageView
+                android:id="@+id/img_xinyong"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_yiwancheng_d"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/img_xinyong"
+                android:layout_marginLeft="5dp"
+                android:text="@string/txt_user_score"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_arrow_you"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:onClick="@{event::viewChangedLanguage}"
+            android:background="@drawable/shap_tiled_bg">
+            <ImageView
+                android:id="@+id/img_yuyan"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_yiwancheng_d"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/img_yuyan"
+                android:layout_marginLeft="5dp"
+                android:text="@string/setting_language"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_arrow_you"/>
+        </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -139,10 +224,19 @@
             android:paddingRight="16dp"
             android:onClick="@{event::viewUserMore}"
             android:background="@drawable/shap_tiled_bg">
+            <ImageView
+                android:id="@+id/img_more"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_plat"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/img_more"
+                android:layout_marginLeft="5dp"
                 android:text="@string/txt_user_more"/>
             <ImageView
                 android:layout_width="wrap_content"
@@ -151,11 +245,6 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/icon_arrow_you"/>
         </RelativeLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="#f2f2f2"
-            android:gravity="center_vertical"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -165,7 +254,7 @@
             android:layout_marginTop="40dp">
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="50dp"
                 android:src="@drawable/button"
                 android:scaleType="centerInside"/>
             <TextView

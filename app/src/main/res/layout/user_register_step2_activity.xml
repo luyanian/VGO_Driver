@@ -59,20 +59,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/shap_tiled_bg"
-                    android:hint="@string/hint_input_shopname"
-                    android:textColorHint="@color/color_hint"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:layout_marginTop="2dp"
-                    android:singleLine="true"
-                    android:textSize="16dp"
-                    android:inputType="text"
-                    android:text="@={data.shopName}"
-                    android:textColor="@color/color_text"/>
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/shap_tiled_bg"
                     android:hint="@string/hint_input_zipcode"
                     android:textColorHint="@color/color_hint"
                     android:paddingLeft="16dp"
@@ -106,27 +92,6 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/shap_tiled_bg_left"
-                        android:layout_marginRight="1dp"
-                        android:layout_weight="1">
-                        <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:scaleType="centerInside"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"
-                            android:src="@drawable/icon_duihao"/>
-                        <android.support.v7.widget.AppCompatSpinner
-                            android:id="@+id/spiner_consignor_state"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@null"
-                            bind:selectedPlanet="@={stateCityViewModel.observableSelectedConsignorState}"
-                            app:adapter="@{stateAdapter}"/>
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
                         android:background="@drawable/shap_tiled_bg_right"
                         android:layout_marginLeft="1dp"
                         android:layout_weight="1">
@@ -144,6 +109,27 @@
                             android:background="@null"
                             bind:selectedPlanet="@={stateCityViewModel.observableSelectedConsignorCity}"
                             app:adapter="@{cityAdapter}"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shap_tiled_bg_left"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:scaleType="centerInside"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:src="@drawable/icon_duihao"/>
+                        <android.support.v7.widget.AppCompatSpinner
+                            android:id="@+id/spiner_consignor_state"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            bind:selectedPlanet="@={stateCityViewModel.observableSelectedConsignorState}"
+                            app:adapter="@{stateAdapter}"/>
                     </RelativeLayout>
                 </LinearLayout>
                 <EditText
@@ -202,6 +188,20 @@
                     android:textSize="16dp"
                     android:inputType="text"
                     android:text="@={data.taxNum}"
+                    android:textColor="@color/color_text"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/shap_tiled_bg"
+                    android:hint="@string/hint_input_paypal_account"
+                    android:textColorHint="@color/color_hint"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:layout_marginTop="2dp"
+                    android:singleLine="true"
+                    android:textSize="16dp"
+                    android:inputType="text"
+                    android:text="@={data.paypalAccount}"
                     android:textColor="@color/color_text"/>
                 <EditText
                     android:layout_width="match_parent"

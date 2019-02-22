@@ -35,12 +35,17 @@
         <activity android:name=".mvvm.view.user.ShopManagementActivity"/>
         <activity android:name=".mvvm.view.user.ShopNameEditActivity"/>
         <activity android:name=".mvvm.view.user.UserAccountActivity"/>
+        <activity android:name=".mvvm.view.user.ServiceScopeActivity"/>
+        <activity android:name=".mvvm.view.user.UserRatingRecordActivity"/>
         <activity android:name=".mvvm.view.user.UserAccountNumEditActivity"/>
         <activity android:name=".mvvm.view.user.UserNameEditActivity"/>
         <activity android:name=".mvvm.view.user.UserPasswordEditActivity"/>
         <activity android:name=".mvvm.view.user.UserFinancialManagementActivity"/>
         <activity android:name=".mvvm.view.setting.WebViewActivity"/>
+        <activity android:name=".mvvm.view.setting.LanguageChangeActivity"/>
         <activity android:name=".mvvm.view.setting.MoreActivity"/>
+        <activity android:name=".mvvm.view.order.PaypalReaderConnectionActivity"/>
+        <activity android:name=".mvvm.view.order.ChargeActivity"/>
     </application>
 
 </manifest>

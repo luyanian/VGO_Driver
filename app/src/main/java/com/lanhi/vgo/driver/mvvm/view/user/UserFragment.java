@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.lanhi.ryon.utils.constant.SPConstants;
 import com.lanhi.vgo.driver.BaseActivity;
 import com.lanhi.vgo.driver.R;
 import com.lanhi.vgo.driver.api.response.UserInfoResponse;
@@ -40,7 +41,9 @@ public class UserFragment extends Fragment {
             @Override
             public void signOut(View v) {
                 super.signOut(v);
-                SPUtils.getInstance().clear();
+                SPUtils.getInstance(SPConstants.USER.NAME).clear();
+                SPUtils.getInstance(SPConstants.LOCATION.NAME).clear();
+                SPUtils.getInstance(SPConstants.PAYPAL.NAME).clear();
                 ARouter.getInstance().build("/user/login").navigation();
                 ActivityPools.finishAllExcept(LoginActivity.class);
             }
@@ -67,6 +70,24 @@ public class UserFragment extends Fragment {
             public void viewUserFinancial(View v) {
                 super.viewUserFinancial(v);
                 ARouter.getInstance().build("/user/financial").navigation();
+            }
+
+            @Override
+            public void viewServiceScope(View v) {
+                super.viewServiceScope(v);
+                ARouter.getInstance().build("/user/servicescope").navigation();
+            }
+
+            @Override
+            public void viewMyScore(View v) {
+                super.viewMyScore(v);
+                ARouter.getInstance().build("/user/score").navigation();
+            }
+
+            @Override
+            public void viewChangedLanguage(View v) {
+                super.viewChangedLanguage(v);
+                ARouter.getInstance().build("/language/change").withBoolean("isShowBtnBack",true).navigation();
             }
 
             @Override

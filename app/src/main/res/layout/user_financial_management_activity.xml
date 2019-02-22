@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="event"
@@ -18,12 +19,14 @@
             app:title="@string/txt_user_financial_manage"/>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/pic_wddi">
             <RelativeLayout
+                android:id="@+id/rl_balance"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_centerInParent="true"
+                android:layout_marginTop="40dp"
+                android:layout_centerHorizontal="true"
                 android:background="@drawable/shap_oval_white">
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -37,12 +40,59 @@
                         android:textColor="#ff9b4e"
                         android:text="@string/txt_my_balance"/>
                     <TextView
+                        android:id="@+id/tv_balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#ff9b4e"
                         android:text="@string/txt_my_balance"/>
                 </LinearLayout>
             </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_balance_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/rl_balance"
+                android:textColor="#ffffff"
+                android:layout_marginTop="8dp"
+                tools:text="待结算金额：2542"/>
+            <TextView
+                android:id="@+id/tv_present_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/tv_balance_balance"
+                android:textColor="#ffffff"
+                android:layout_marginTop="3dp"
+                tools:text="可提现金额：2542"/>
+            <LinearLayout
+                android:id="@+id/ll_options"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_present_balance"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                android:padding="16dp">
+                <TextView
+                    android:id="@+id/tv_rechange"
+                    android:layout_width="90dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/shap_fillet_white"
+                    android:gravity="center"
+                    android:textColor="#ff9b4e"
+                    android:onClick="rechage"
+                    android:text="充值"/>
+                <TextView
+                    android:id="@+id/tv_withdraw_cash"
+                    android:layout_width="90dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:background="@drawable/shap_fillet_white"
+                    android:textColor="#ff9b4e"
+                    android:onClick="withdrawCash"
+                    android:text="提现"/>
+            </LinearLayout>
         </RelativeLayout>
         <TextView
             android:layout_width="match_parent"
@@ -51,16 +101,12 @@
             android:gravity="center_vertical"
             android:paddingLeft="16dp"
             android:text="@string/txt_balance_of_payments"/>
-        <ScrollView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            </LinearLayout>
-        </ScrollView>
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
 </layout>

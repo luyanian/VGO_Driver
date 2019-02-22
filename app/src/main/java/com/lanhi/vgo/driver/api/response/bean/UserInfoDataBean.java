@@ -44,7 +44,7 @@ public class UserInfoDataBean implements Serializable {
         private String city_name;
         private String img_url_s;
         private String remarks;
-        private String examine_time;
+        private CreatetimeBean examine_time;
         private String state_name;
         private String account_state;
         private CreatetimeBean createtime;
@@ -113,11 +113,11 @@ public class UserInfoDataBean implements Serializable {
             this.remarks = remarks;
         }
 
-        public String getExamine_time() {
+        public CreatetimeBean getExamine_time() {
             return examine_time;
         }
 
-        public void setExamine_time(String examine_time) {
+        public void setExamine_time(CreatetimeBean examine_time) {
             this.examine_time = examine_time;
         }
 

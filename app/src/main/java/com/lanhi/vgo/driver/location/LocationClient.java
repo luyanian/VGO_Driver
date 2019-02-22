@@ -1,20 +1,15 @@
 package com.lanhi.vgo.driver.location;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Bundle;
-import android.support.v13.app.ActivityCompat;
-import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.lanhi.ryon.utils.constant.SPConstants;
 import com.lanhi.ryon.utils.mutils.LogUtils;
 import com.lanhi.ryon.utils.mutils.SPUtils;
 import com.lanhi.vgo.driver.App;
@@ -23,7 +18,6 @@ import com.lanhi.vgo.driver.api.response.BaseResponse;
 import com.lanhi.vgo.driver.api.response.bean.UserInfoDataBean;
 import com.lanhi.vgo.driver.common.Common;
 import com.lanhi.vgo.driver.common.RObserver;
-import com.lanhi.vgo.driver.common.SPKeys;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -126,10 +120,10 @@ public class LocationClient {
             //海拔
             double altitude = location.getAltitude();
 
-            SPUtils.getInstance().put(SPKeys.DEVICE_CURRENT_LOCATION.LAT,latitude+"");
-            SPUtils.getInstance().put(SPKeys.DEVICE_CURRENT_LOCATION.LNG,longitude+"");
+            SPUtils.getInstance(SPConstants.LOCATION.NAME).put(SPConstants.LOCATION.LAT,latitude+"");
+            SPUtils.getInstance(SPConstants.LOCATION.NAME).put(SPConstants.LOCATION.LNG,longitude+"");
 
-            UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance().readObject(SPKeys.USER_INFO);
+            UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance(SPConstants.USER.NAME).readObject(SPConstants.USER.USER_INFO);
             if(userInfoData!=null) {
                 Map<String, Object> map = new HashMap<>();
                 map.put("tokenid", Common.getToken());

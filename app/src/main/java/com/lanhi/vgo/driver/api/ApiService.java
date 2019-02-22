@@ -1,7 +1,10 @@
 package com.lanhi.vgo.driver.api;
 
+import com.lanhi.vgo.driver.api.response.AccessTokenResponse;
 import com.lanhi.vgo.driver.api.response.DistanceFeeResponse;
 import com.lanhi.vgo.driver.api.response.DistanceMatrixResponse;
+import com.lanhi.vgo.driver.api.response.ServiceScopeResponse;
+import com.lanhi.vgo.driver.api.response.UserBillsResponse;
 import com.lanhi.vgo.driver.api.response.WebInfoResponse;
 import com.lanhi.vgo.driver.api.response.BaseResponse;
 import com.lanhi.vgo.driver.api.response.GetCityResponse;
@@ -84,6 +87,10 @@ public interface ApiService{
     Observable<OrderDetailResponse> getOrderDetail(@Field("str") String str);
 
     @FormUrlEncoded
+    @POST("appinterface/pick_up.shtml")
+    Observable<BaseResponse> pickUpOrder(@Field("str") String str);
+
+    @FormUrlEncoded
     @POST("appinterface/getuserinfo.shtml")
     Observable<UserInfoResponse> getUserInfo(@Field("str") String str);
 
@@ -128,6 +135,26 @@ public interface ApiService{
     Observable<UploadFileResponse> uploadUserImg(@Part MultipartBody.Part myFile, @Part MultipartBody.Part tokenid, @Part MultipartBody.Part userid);
 
     @Headers({
+            "Content-Type:application/x-www-form-urlencoded",
+            "Accept:application/json",
+            "Accept-Language:en_US",
+            "Authorization:Basic QVZPZlpGZnpRYnRXY2RLRndyN0ZFSEctSkt4SnVRblQtdVpuTzF5bDdGR2poVW9VRDJuUFlaLTF5VnNVNlFIdEZWaDl0RXoyRzJpSXkxNV86RUVRQmtyWE83LVEwQkJsY3NOeTBoRkx2YzZOa19Qd1hmckNlRFFWazF6d0NXYnRjU2NNUG9SLVppUzl4U1NFNW50bUd5NlUwN1ZMc2V5d1I=",
+    })
+    @FormUrlEncoded
+    @POST("https://api.sandbox.paypal.com/v1/oauth2/token")
+    Observable<AccessTokenResponse> getSandboxAccessToken(@Field("grant_type") String grantType);
+
+    @Headers({
+            "Content-Type:application/x-www-form-urlencoded",
+            "Accept:application/json",
+            "Accept-Language:en_US",
+            "Authorization:Basic QVVYclUyXzFrQ3dacjM2YUZMbXA0R0x3VllPSVJ5Zk9EVXJ5ZkVOWm0tWDkyNVN5c1V6VkJNUk1yeWFLb0FaMHVyY3VUNGtpTTNxaDF2UHM6RVA2a2prcWE3WXNoN3paQ2l2ZTkxbWk0N2cyTGNmQWwwVzVzdk8wQ0tLVjBQb1I5aGxtUm1WSHdKWHJITS1ET3loUkpTcUxMNnBEZVpaX3Q=",
+    })
+    @FormUrlEncoded
+    @POST("https://api.sandbox.paypal.com/v1/oauth2/token")
+    Observable<AccessTokenResponse> getLiveAccessToken(@Field("grant_type") String grantType);
+
+    @Headers({
             "Accept: application/json",
     })
     @Multipart
@@ -141,4 +168,23 @@ public interface ApiService{
     @POST("appinterface/distribution_fee.shtml")
     Observable<DistanceFeeResponse> getDistanceFee(@Field("str") String str);
 
+    @FormUrlEncoded
+    @POST("appinterface/update_min_average.shtml")
+    Observable<ServiceScopeResponse> updateServiceScope(@Field("str") String str);
+
+    @FormUrlEncoded
+    @POST("appinterface/getmin_average.shtml")
+    Observable<ServiceScopeResponse> getServiceScope(@Field("str") String str);
+
+    @FormUrlEncoded
+    @POST("appinterface/getAverage.shtml")
+    Observable<ServiceScopeResponse> getUserScore(@Field("str") String str);
+
+    @FormUrlEncoded
+    @POST("appinterface/appinterface/bEvaluateList_d.shtml")
+    Observable<ServiceScopeResponse> getUserScoreRecord(@Field("str") String str);
+
+    @FormUrlEncoded
+    @POST("appinterface/my_bill.shtml")
+    Observable<UserBillsResponse> getUserBills(@Field("str") String str);
 }

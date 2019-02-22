@@ -3,36 +3,26 @@ package com.lanhi.vgo.driver.mvvm.view.order;
 import android.Manifest;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v13.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.lanhi.ryon.utils.mutils.SPUtils;
 import com.lanhi.vgo.driver.R;
 import com.lanhi.vgo.driver.adapter.OrderListAdapter;
 import com.lanhi.vgo.driver.api.response.BaseResponse;
 import com.lanhi.vgo.driver.api.response.OrderListResponse;
-import com.lanhi.vgo.driver.common.GlobalParams;
 import com.lanhi.vgo.driver.common.OnEventListener;
 import com.lanhi.vgo.driver.common.RObserver;
-import com.lanhi.vgo.driver.common.SPKeys;
 import com.lanhi.vgo.driver.databinding.OrderGrapFragmentBinding;
 import com.lanhi.vgo.driver.dialog.DialogOptions;
 import com.lanhi.vgo.driver.dialog.DialogUtils;
-import com.lanhi.vgo.driver.location.LocationClient;
-import com.lanhi.vgo.driver.mvvm.model.StateCityData;
 import com.lanhi.vgo.driver.mvvm.view.MainActivity;
 import com.lanhi.vgo.driver.mvvm.viewmodel.OrderViewModel;
 import com.luck.picture.lib.permissions.RxPermissions;
@@ -40,12 +30,9 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.functions.Consumer;
-
-import static com.luck.picture.lib.permissions.RxPermissions.TAG;
 
 public class OrderGrapFragment extends Fragment {
     OrderGrapFragmentBinding binding;
@@ -84,7 +71,6 @@ public class OrderGrapFragment extends Fragment {
                                 rxPermissions.request(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION).subscribe(new Consumer<Boolean>() {
                                     @Override
                                     public void accept(Boolean aBoolean) throws Exception {
-
 
                                         orderViewModel.grapOrder(orderListBean,new RObserver<BaseResponse>() {
                                             @Override

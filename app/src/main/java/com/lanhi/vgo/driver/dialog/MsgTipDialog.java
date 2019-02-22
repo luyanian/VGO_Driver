@@ -40,7 +40,8 @@ public class MsgTipDialog extends Dialog {
     }
 
     public MsgTipDialog setMsg(int msg) {
-        binding.setMsg(App.getInstance().getResources().getString(R.string.msg_location_provider_disable));
+//        binding.setMsg(App.getInstance().getResources().getString(R.string.msg_location_provider_disable));
+        binding.setMsg(App.getInstance().getResources().getString(msg));
         return this;
     }
 

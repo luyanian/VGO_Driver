@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:stepview="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/sdk_black"
+                android:layout_centerInParent="true"
+                android:text="Connect a reader"
+                android:textSize="16sp"
+                android:layout_gravity="center" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose One"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/sdk_black"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textStyle="bold"
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:text="Find &amp; Connect"/>
+                    <Button
+                        android:layout_width="70dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/shap_corner_button_h"
+                        android:onClick="onFindAndConnectClicked"
+                        android:textAllCaps="false"
+                        android:text="Connect" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line_color"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textStyle="bold"
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:text="Connect to last known reader"/>
+                    <Button
+                        android:layout_width="70dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/shap_corner_button_h"
+                        android:onClick="onConnectToLastClicked"
+                        android:textAllCaps="false"
+                        android:text="Connect"
+                        />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line_color"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textStyle="bold"
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:text="Auto connect"/>
+                    <Button
+                        android:layout_width="70dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/shap_corner_button_h"
+                        android:onClick="onAutoConnectClicked"
+                        android:textAllCaps="false"
+                        android:text="Connect"
+                        />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line_color"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"/>
+            </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btn_run_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/textReaderId"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:text="ReaderId"
+            android:textSize="@dimen/large"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onRunTransactionClicked"
+            android:id="@+id/run_txn_btn"
+            android:layout_margin="16dp"
+            android:background="@drawable/btn_1"
+            android:text="Run Transactions"
+            android:layout_alignParentBottom="true"
+            android:textAllCaps="false"
+            android:textColor="@color/sdk_white" />
+    </LinearLayout>
+</RelativeLayout>
+

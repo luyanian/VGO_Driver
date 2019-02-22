@@ -2,6 +2,8 @@ package com.lanhi.vgo.driver.common;
 
 import android.text.TextUtils;
 import android.view.View;
+
+import com.lanhi.ryon.utils.constant.SPConstants;
 import com.lanhi.ryon.utils.mutils.TimeUtils;
 import com.lanhi.vgo.driver.App;
 import com.lanhi.vgo.driver.R;
@@ -46,7 +48,7 @@ public class Common {
         }
     }
     public static String getToken(){
-        return SPUtils.getInstance().getString(SPKeys.TOKENID);
+        return SPUtils.getInstance(SPConstants.USER.NAME).getString(SPConstants.USER.TOKENID);
     }
 
     public static String getOrderStateString(String state){
@@ -190,6 +192,14 @@ public class Common {
         }
         return View.GONE;
     }
+    //联系收货人是否显示
+    public static int getReceiptViewVisible(String state){
+        if(GlobalParams.ORDER_STATE.UNANSWEWD.equals(state)
+                ||GlobalParams.ORDER_STATE.UNPICKUP.equals(state)){
+            return View.GONE;
+        }
+        return View.VISIBLE;
+    }
     //联系配送员是否显示
     public static int getDeliveryViewVisible(String state){
         if(GlobalParams.ORDER_STATE.UNPICKUP.equals(state)
@@ -249,6 +259,24 @@ public class Common {
             return "Your cash application has not been approved,click to see the reason.";
         }
         return "Click to see the details.";
+    }
+
+    //根据订单状态判断是否显示按钮
+    public static int getStateOptionVisible(String state){
+        if(GlobalParams.ORDER_STATE.UNPICKUP.equals(state)||GlobalParams.ORDER_STATE.ON_THE_WAY.equals(state)){
+            return View.VISIBLE;
+        }
+        return View.GONE;
+    }
+
+    //根据订单状态显示操作按钮文字
+    public static String getStateOptionTextString(String state){
+        if(GlobalParams.ORDER_STATE.UNPICKUP.equals(state)){
+            return App.getInstance().getResources().getString(R.string.btn_pickup);
+        }else if(GlobalParams.ORDER_STATE.ON_THE_WAY.equals(state)){
+            return App.getInstance().getResources().getString(R.string.btn_onclick_complete);
+        }
+        return "";
     }
 
     //google map  计算两地之间的距离

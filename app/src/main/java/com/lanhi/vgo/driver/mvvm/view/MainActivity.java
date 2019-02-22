@@ -18,8 +18,10 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
+import com.lanhi.ryon.utils.constant.SPConstants;
 import com.lanhi.ryon.utils.mutils.LogUtils;
 import com.lanhi.ryon.utils.mutils.SPUtils;
+import com.lanhi.ryon.utils.mutils.language.OnChangeLanguageEvent;
 import com.lanhi.vgo.driver.BaseActivity;
 import com.lanhi.vgo.driver.R;
 import com.lanhi.vgo.driver.api.ApiRepository;
@@ -28,7 +30,6 @@ import com.lanhi.vgo.driver.api.response.bean.UserInfoDataBean;
 import com.lanhi.vgo.driver.common.Common;
 import com.lanhi.vgo.driver.common.OnMenuSelectorListener;
 import com.lanhi.vgo.driver.common.RObserver;
-import com.lanhi.vgo.driver.common.SPKeys;
 import com.lanhi.vgo.driver.databinding.MainActivityBinding;
 import com.lanhi.vgo.driver.dialog.DialogOptions;
 import com.lanhi.vgo.driver.dialog.DialogUtils;
@@ -37,6 +38,10 @@ import com.lanhi.vgo.driver.mvvm.view.order.OrderListFragment;
 import com.lanhi.vgo.driver.mvvm.view.order.OrderGrapFragment;
 import com.lanhi.vgo.driver.mvvm.view.user.UserFragment;
 import com.luck.picture.lib.permissions.RxPermissions;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,6 +68,19 @@ public class MainActivity extends BaseActivity {
         updateFmcTocken();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onChangeLanguageEvent(OnChangeLanguageEvent event){
+        Log.d("onchange","ChangeLanguage");
+    }
+
     private void startLocation() {
         RxPermissions rxPermissions = new RxPermissions(this);
         rxPermissions.request(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION).subscribe(new Consumer<Boolean>() {
@@ -72,21 +90,21 @@ public class MainActivity extends BaseActivity {
                      LocationClient.getInstance().startLocationListener();
                 }else{
                     DialogUtils.getInstance()
-                            .createMsgTipDialog(MainActivity.this)
-                            .setMsg(R.string.msg_location_provider_disable)
-                            .setDialogOptons(new DialogOptions(){
-                                @Override
-                                public void sure(View v) {
-                                    super.sure(v);
-                                    Intent i = new Intent();
-                                    i.setAction(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                    startActivity(i);
-                                }
-                                @Override
-                                public void cancle(View v) {
-                                    super.cancle(v);
-                                }
-                            });
+                        .createMsgTipDialog(MainActivity.this)
+                        .setMsg(R.string.msg_location_provider_disable)
+                        .setDialogOptons(new DialogOptions(){
+                            @Override
+                            public void sure(View v) {
+                                super.sure(v);
+                                Intent i = new Intent();
+                                i.setAction(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                startActivity(i);
+                            }
+                            @Override
+                            public void cancle(View v) {
+                                super.cancle(v);
+                            }
+                        });
                 }
             }
         });
@@ -113,7 +131,7 @@ public class MainActivity extends BaseActivity {
     private void updateFmcTocken() {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.d("firebase", "Refreshed token: " + refreshedToken);
-        UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance().readObject(SPKeys.USER_INFO);
+        UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance(SPConstants.USER.NAME).readObject(SPConstants.USER.USER_INFO);
         if(userInfoData!=null) {
             Map<String, Object> map = new HashMap<>();
             map.put("tokenid", Common.getToken());
@@ -250,4 +268,9 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

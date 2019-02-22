@@ -3,26 +3,19 @@ package com.lanhi.vgo.driver.mvvm.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Observer;
-import android.location.Location;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
-import com.lanhi.vgo.driver.App;
+import com.lanhi.ryon.utils.constant.SPConstants;
 import com.lanhi.vgo.driver.api.ApiRepository;
 import com.lanhi.vgo.driver.api.response.BaseResponse;
-import com.lanhi.vgo.driver.api.response.DistanceFeeResponse;
 import com.lanhi.vgo.driver.api.response.DistanceMatrixResponse;
 import com.lanhi.vgo.driver.api.response.OrderDetailResponse;
 import com.lanhi.vgo.driver.api.response.OrderListResponse;
 import com.lanhi.vgo.driver.api.response.bean.UserInfoDataBean;
 import com.lanhi.vgo.driver.common.Common;
 import com.lanhi.vgo.driver.common.RObserver;
-import com.lanhi.vgo.driver.common.SPKeys;
-import com.lanhi.vgo.driver.location.LocationClient;
 import com.lanhi.vgo.driver.mvvm.model.OrderData;
 import com.lanhi.ryon.utils.mutils.SPUtils;
 
@@ -40,7 +33,7 @@ public class OrderViewModel extends AndroidViewModel {
     public OrderViewModel(@NonNull Application application) {
         super(application);
         OrderData orderData = new OrderData();
-        UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance().readObject(SPKeys.USER_INFO);
+        UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance(SPConstants.USER.NAME).readObject(SPConstants.USER.USER_INFO);
         if(userInfoData!=null){
             orderData.setConsignorName(userInfoData.getUser_name());
             orderData.setConsignorAddress(userInfoData.getAddressinfo());
@@ -86,7 +79,7 @@ public class OrderViewModel extends AndroidViewModel {
 
     public void clearInputInfo() {
         OrderData orderData = new OrderData();
-        UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance().readObject(SPKeys.USER_INFO);
+        UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance(SPConstants.USER.NAME).readObject(SPConstants.USER.USER_INFO);
         if(userInfoData!=null){
             orderData.setConsignorName(userInfoData.getUser_name());
             orderData.setConsignorAddress(userInfoData.getAddressinfo());
@@ -105,7 +98,7 @@ public class OrderViewModel extends AndroidViewModel {
 
     public synchronized void loadGrapOrderList(final int pagenum) {
         Map map = new HashMap();
-        UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance().readObject(SPKeys.USER_INFO);
+        UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance(SPConstants.USER.NAME).readObject(SPConstants.USER.USER_INFO);
         if(userInfoData!=null){
             map.put("delivererid",userInfoData.getId());
             map.put("tokenid", Common.getToken());
@@ -134,7 +127,7 @@ public class OrderViewModel extends AndroidViewModel {
 
     public synchronized void loadOrderList(final String order_state, final int pagenum) {
         Map map = new HashMap();
-        UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance().readObject(SPKeys.USER_INFO);
+        UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance(SPConstants.USER.NAME).readObject(SPConstants.USER.USER_INFO);
         if(userInfoData!=null){
             map.put("distributorid",userInfoData.getId());
             map.put("order_state",order_state);
@@ -163,13 +156,13 @@ public class OrderViewModel extends AndroidViewModel {
     }
     //抢单
     public void grapOrder(final OrderListResponse.OrderListBean orderListBean, final RObserver<BaseResponse> rObserver) {
-        String latitude = SPUtils.getInstance().getString(SPKeys.DEVICE_CURRENT_LOCATION.LAT);
-        String longitude = SPUtils.getInstance().getString(SPKeys.DEVICE_CURRENT_LOCATION.LNG);
+        String latitude = SPUtils.getInstance(SPConstants.LOCATION.NAME).getString(SPConstants.LOCATION.LAT);
+        String longitude = SPUtils.getInstance(SPConstants.LOCATION.NAME).getString(SPConstants.LOCATION.LNG);
         if(orderListBean==null||TextUtils.isEmpty(orderListBean.getS_stateinfo())||TextUtils.isEmpty(orderListBean.getS_ctiyinfo())
                 ||TextUtils.isEmpty(orderListBean.getS_addressinfo())||TextUtils.isEmpty(latitude)||TextUtils.isEmpty(longitude)){
             return;
         }
-        final UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance().readObject(SPKeys.USER_INFO);
+        final UserInfoDataBean userInfoData = (UserInfoDataBean) SPUtils.getInstance(SPConstants.USER.NAME).readObject(SPConstants.USER.USER_INFO);
         if(userInfoData==null){
             return;
         }
@@ -214,6 +207,14 @@ public class OrderViewModel extends AndroidViewModel {
                 orderDetailLiveData.setValue(orderDetailResponse);
             }
         });
+    }
+    public void pickUpOrder(String order_code,String longitude,String latitude,RObserver rObserver) {
+        Map map = new HashMap();
+        map.put("tokenid", Common.getToken());
+        map.put("order_code",order_code);
+        map.put("longitude",longitude);
+        map.put("latitude",latitude);
+        ApiRepository.pickUpOrder(new Gson().toJson(map)).subscribe(rObserver);
     }
 
     public MutableLiveData<OrderDetailResponse> getOrderDetailLiveData(){

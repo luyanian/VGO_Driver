@@ -7,6 +7,8 @@ import android.support.v4.util.SimpleArrayMap;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.lanhi.ryon.utils.constant.SPConstants;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -29,7 +31,7 @@ public final class SPUtils {
 
     private static SimpleArrayMap<String, SPUtils> SP_UTILS_MAP = new SimpleArrayMap<>();
     private SharedPreferences sp;
-    private static final String defaultName = "delivery_consignor";
+
 
     /**
      * 获取SP实例
@@ -37,7 +39,7 @@ public final class SPUtils {
      * @return {@link SPUtils}
      */
     public static SPUtils getInstance() {
-        return getInstance(defaultName);
+        return getInstance(SPConstants.DEFAULT_NAME);
     }
 
     /**
@@ -47,7 +49,7 @@ public final class SPUtils {
      * @return {@link SPUtils}
      */
     public static SPUtils getInstance(String spName) {
-        if (isSpace(spName)) spName = defaultName;
+        if (isSpace(spName)) spName = SPConstants.DEFAULT_NAME;
         SPUtils spUtils = SP_UTILS_MAP.get(spName);
         if (spUtils == null) {
             spUtils = new SPUtils(spName);

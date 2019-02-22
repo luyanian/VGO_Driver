@@ -21,6 +21,7 @@ public class UserData {
     private String checkNum;
     private String routingNum;
     private String taxNum;
+    private String paypalAccount;
     private String refereeName;
     private String refereeTel;
     private int currentItem;
@@ -152,6 +153,14 @@ public class UserData {
 
     public void setTaxNum(String taxNum) {
         this.taxNum = taxNum;
+    }
+
+    public String getPaypalAccount() {
+        return paypalAccount;
+    }
+
+    public void setPaypalAccount(String paypalAccount) {
+        this.paypalAccount = paypalAccount;
     }
 
     public String getRefereeName() {

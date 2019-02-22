@@ -55,6 +55,7 @@ public class OrderListFragment extends Fragment implements View.OnClickListener{
             public void grapOrder(View v, OrderListResponse.OrderListBean orderListBean) {
                 super.grapOrder(v,orderListBean);
                 if(GlobalParams.ORDER_STATE.UNANSWEWD.equals(orderListBean.getOrder_state())){
+
 //                    orderViewModel.grapOrder(orderListBean, location, new RObserver<BaseResponse>() {
 //                        @Override
 //                        public void onSuccess(BaseResponse baseResponse) {

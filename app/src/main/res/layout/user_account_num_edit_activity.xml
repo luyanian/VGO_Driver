@@ -12,6 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#ffffff"
         android:orientation="vertical">
         <com.lanhi.vgo.driver.weight.titlebar.Titlebar
             android:id="@+id/titlebar"
@@ -19,35 +20,60 @@
             android:layout_height="wrap_content"
             app:showLeftBack="true"
             app:title="@string/txt_user_account_num_edit"/>
-
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/shap_tiled_bg"
-            android:hint="@string/hint_input_check_account"
-            android:textColorHint="@color/color_hint"
-            android:layout_toRightOf="@+id/tv_shop_name"
-            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginTop="30dp"
-            android:paddingLeft="8dp"
-            android:inputType="text"
-            android:text="@={data.checkNum}"
-            android:textSize="16dp"
-            android:textColor="@color/color_text"/>
-
-        <EditText
+            android:background="@drawable/shap_tiled_bg">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:textColor="#434554"
+                android:gravity="right|center_vertical"
+                android:text="@string/txt_account_num"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="3"
+                android:hint="@string/hint_input_check_account"
+                android:background="@drawable/shap_tiled_trans"
+                android:textColorHint="@color/color_hint"
+                android:layout_toRightOf="@+id/tv_shop_name"
+                android:layout_centerVertical="true"
+                android:inputType="text"
+                android:text="@={data.checkNum}"
+                android:textSize="16dp"
+                android:textColor="@color/color_text"/>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/shap_tiled_bg"
-            android:hint="@string/hint_input_routing_num"
-            android:textColorHint="@color/color_hint"
-            android:layout_toRightOf="@+id/tv_shop_name"
-            android:layout_centerVertical="true"
-            android:paddingLeft="8dp"
-            android:inputType="text"
-            android:text="@={data.routingNum}"
-            android:textSize="16dp"
-            android:textColor="@color/color_text"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/shap_tiled_bg">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:textColor="#434554"
+                android:gravity="right|center_vertical"
+                android:text="@string/txt_routing_num"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="3"
+                android:background="@drawable/shap_tiled_bg"
+                android:hint="@string/hint_input_routing_num"
+                android:textColorHint="@color/color_hint"
+                android:layout_toRightOf="@+id/tv_shop_name"
+                android:layout_centerVertical="true"
+                android:inputType="text"
+                android:text="@={data.routingNum}"
+                android:textSize="16dp"
+                android:textColor="@color/color_text"/>
+        </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,6 +1,7 @@
 package com.lanhi.vgo.driver.common;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.lanhi.ryon.utils.constant.SPConstants;
 import com.lanhi.vgo.driver.App;
 import com.lanhi.vgo.driver.R;
 import com.lanhi.vgo.driver.api.response.BaseResponse;
@@ -31,7 +32,9 @@ public abstract class RObserver<T> implements Observer{
                 break;
             case "99"://tokenid无效
                 ToastUtils.showShort(App.getInstance().getResources().getString(R.string.error_user_tocken));
-                SPUtils.getInstance().clear();
+                SPUtils.getInstance(SPConstants.USER.NAME).clear();
+                SPUtils.getInstance(SPConstants.LOCATION.NAME).clear();
+                SPUtils.getInstance(SPConstants.PAYPAL.NAME).clear();
                 ARouter.getInstance().build("/user/login").navigation();
                 ActivityPools.finishAllExcept(LoginActivity.class);
                 break;

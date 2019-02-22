@@ -9,6 +9,7 @@ android {
         targetSdkVersion build_versions.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -29,7 +30,6 @@ android {
             android.applicationVariants.all {
                 variant ->
                     variant.outputs.all {
-                        //outputFileName="miitapp_" + buildType.name + "_v" + defaultConfig.versionName + "_${releaseTime()}.apk";
                         outputFileName = "vgo_" + buildType.name + "_v" + defaultConfig.versionName + ".apk";
                     }
             }
@@ -100,6 +100,10 @@ dependencies {
     //permissionsdispatcher
     implementation deps.hotchemi.dispatcher
     annotationProcessor deps.hotchemi.processor
+    implementation 'com.eclipsesource.j2v8:j2v8:4.6.0@aar'
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
 //    implementation 'com.squareup.sdk:point-of-sale-sdk:2.0'
     api('com.paypal.retail:here-sdk-debug:2.0.1.201815@aar'){transitive=true}
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'com.android.support:recyclerview-v7:27.0.0'
 }

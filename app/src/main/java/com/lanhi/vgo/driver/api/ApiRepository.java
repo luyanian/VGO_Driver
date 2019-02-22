@@ -1,7 +1,10 @@
 package com.lanhi.vgo.driver.api;
 
+import com.lanhi.vgo.driver.api.response.AccessTokenResponse;
 import com.lanhi.vgo.driver.api.response.DistanceFeeResponse;
 import com.lanhi.vgo.driver.api.response.DistanceMatrixResponse;
+import com.lanhi.vgo.driver.api.response.ServiceScopeResponse;
+import com.lanhi.vgo.driver.api.response.UserBillsResponse;
 import com.lanhi.vgo.driver.api.response.WebInfoResponse;
 import com.lanhi.vgo.driver.api.response.BaseResponse;
 import com.lanhi.vgo.driver.api.response.GetCityResponse;
@@ -118,6 +121,13 @@ public class ApiRepository {
                 .observeOn(AndroidSchedulers.mainThread());
         return observable;
     }
+
+    public static Observable<BaseResponse> pickUpOrder(String str) {
+        Observable<BaseResponse> observable = ApiClient.getApiService().pickUpOrder(Common.rsaEncrypt(str))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        return observable;
+    }
     public static Observable<UserInfoResponse> getUserInfo(String str) {
         Observable<UserInfoResponse> observable = ApiClient.getApiService().getUserInfo(Common.rsaEncrypt(str))
                 .subscribeOn(Schedulers.io())
@@ -188,6 +198,28 @@ public class ApiRepository {
                 .observeOn(AndroidSchedulers.mainThread());
         return observable;
     }
+    public static Observable<AccessTokenResponse> getSandboxAccessToken() {
+        String grantType = "client_credentials";
+//        String clientIdSecret = clientId+":"+secret;
+//        String auth = "Basic "+ EncodeUtils.base64Encode2String(clientIdSecret.getBytes());
+//        Basic QVZPZlpGZnpRYnRXY2RLRndyN0ZFSEctSkt4SnVRblQtdVpuTzF5bDdGR2poVW9VRDJuUFlaLTF5VnNVNlFIdEZWaDl0RXoyRzJpSXkxNV86RUVRQmtyWE83LVEwQkJsY3NOeTBoRkx2YzZOa19Qd1hmckNlRFFWazF6d0NXYnRjU2NNUG9SLVppUzl4U1NFNW50bUd5NlUwN1ZMc2V5d1I=",
+
+        Observable<AccessTokenResponse> observable = ApiClient.getApiService().getSandboxAccessToken(grantType)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        return observable;
+    }
+    public static Observable<AccessTokenResponse> getLiveAccessToken() {
+        String grantType = "client_credentials";
+//        String clientIdSecret = clientId+":"+secret;
+//        String auth = "Basic "+ EncodeUtils.base64Encode2String(clientIdSecret.getBytes());
+//        Basic QVVYclUyXzFrQ3dacjM2YUZMbXA0R0x3VllPSVJ5Zk9EVXJ5ZkVOWm0tWDkyNVN5c1V6VkJNUk1yeWFLb0FaMHVyY3VUNGtpTTNxaDF2UHM6RVA2a2prcWE3WXNoN3paQ2l2ZTkxbWk0N2cyTGNmQWwwVzVzdk8wQ0tLVjBQb1I5aGxtUm1WSHdKWHJITS1ET3loUkpTcUxMNnBEZVpaX3Q=
+
+        Observable<AccessTokenResponse> observable = ApiClient.getApiService().getLiveAccessToken(grantType)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        return observable;
+    }
 
     public static Observable<DistanceMatrixResponse> getDistanceMetrix(String url) {
         Observable<DistanceMatrixResponse> observable = ApiClient.getApiService().getDistanceMetrix(url)
@@ -198,6 +230,39 @@ public class ApiRepository {
 
     public static Observable<DistanceFeeResponse> getDistanceFee(String str) {
         Observable<DistanceFeeResponse> observable = ApiClient.getApiService().getDistanceFee(Common.rsaEncrypt(str))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        return observable;
+    }
+
+    public static Observable<ServiceScopeResponse> updateServiceScope(String str) {
+        Observable<ServiceScopeResponse> observable = ApiClient.getApiService().updateServiceScope(Common.rsaEncrypt(str))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        return observable;
+    }
+
+    public static Observable<ServiceScopeResponse> getServiceScope(String str) {
+        Observable<ServiceScopeResponse> observable = ApiClient.getApiService().getServiceScope(Common.rsaEncrypt(str))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        return observable;
+    }
+    public static Observable<ServiceScopeResponse> getUserScore(String str) {
+        Observable<ServiceScopeResponse> observable = ApiClient.getApiService().getUserScore(Common.rsaEncrypt(str))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        return observable;
+    }
+    public static Observable<ServiceScopeResponse> getUserScoreRecord(String str) {
+        Observable<ServiceScopeResponse> observable = ApiClient.getApiService().getUserScoreRecord(Common.rsaEncrypt(str))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        return observable;
+    }
+
+    public static Observable<UserBillsResponse> getUserBills(String str) {
+        Observable<UserBillsResponse> observable = ApiClient.getApiService().getUserBills(Common.rsaEncrypt(str))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
         return observable;

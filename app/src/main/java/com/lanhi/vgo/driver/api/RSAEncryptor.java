@@ -63,7 +63,7 @@ public class RSAEncryptor {
     }
 
 
-    public RSAEncryptor.KeyPairInfo getKeyPair() {
+    public KeyPairInfo getKeyPair() {
         return getKeyPair(1024);
     }
     /**
@@ -71,7 +71,7 @@ public class RSAEncryptor {
      * @param keySize
      * @return
      */
-    public RSAEncryptor.KeyPairInfo getKeyPair(int keySize) {
+    public KeyPairInfo getKeyPair(int keySize) {
         try {
             KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(TRANSFORMATION);
             // 初始化密钥对生成器，密钥大小一般要大于1024位，
@@ -86,7 +86,7 @@ public class RSAEncryptor {
             // 得到公钥
             RSAPublicKey orapublicKey = (RSAPublicKey) keyPair.getPublic();
 
-            RSAEncryptor.KeyPairInfo pairInfo = new RSAEncryptor.KeyPairInfo(keySize);
+            KeyPairInfo pairInfo = new KeyPairInfo(keySize);
             //公钥
             byte[] publicKeybyte = orapublicKey.getEncoded();
             String publicKeyString = EncodeUtils.base64Encode2String(publicKeybyte);

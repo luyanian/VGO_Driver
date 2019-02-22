@@ -4,17 +4,16 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.lanhi.ryon.utils.constant.SPConstants;
 import com.lanhi.vgo.driver.BaseActivity;
 import com.lanhi.vgo.driver.R;
-import com.lanhi.vgo.driver.api.response.GetCityResponse;
 import com.lanhi.vgo.driver.api.response.GetStatesResponse;
-import com.lanhi.vgo.driver.common.GlobalParams;
-import com.lanhi.vgo.driver.common.SPKeys;
 import com.lanhi.vgo.driver.mvvm.model.StateCityData;
 import com.lanhi.vgo.driver.adapter.StateCityAdapter;
 import com.lanhi.vgo.driver.api.response.BaseResponse;
@@ -26,7 +25,6 @@ import com.lanhi.vgo.driver.mvvm.viewmodel.StateCityViewModel;
 import com.lanhi.vgo.driver.mvvm.viewmodel.UserViewModel;
 import com.lanhi.vgo.driver.weight.titlebar.TitleBarOptions;
 import com.lanhi.ryon.utils.mutils.ActivityPools;
-import com.lanhi.ryon.utils.mutils.ActivityUtils;
 import com.lanhi.ryon.utils.mutils.SPUtils;
 
 import java.util.ArrayList;
@@ -37,7 +35,8 @@ public class RegistStep2Activity extends BaseActivity {
     UserRegisterStep2ActivityBinding binding;
     UserViewModel userViewModel;
     StateCityViewModel stateCityViewModel;
-    StateCityAdapter stateCityAdapter;
+    StateCityAdapter stateAdapter;
+    StateCityAdapter cityAdapter;
     private List<StateCityData> stateDataLists = new ArrayList<>();
     private List<StateCityData> cityDataLists = new ArrayList<>();
 
@@ -48,7 +47,8 @@ public class RegistStep2Activity extends BaseActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.user_register_step2_activity);
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         stateCityViewModel = ViewModelProviders.of(this).get(StateCityViewModel.class);
-        stateCityAdapter = new StateCityAdapter(this);
+        stateAdapter = new StateCityAdapter(this);
+        cityAdapter = new StateCityAdapter(this);
         initTitleBar();
         initEventListener();
         initDataChanged();
@@ -82,8 +82,8 @@ public class RegistStep2Activity extends BaseActivity {
                 StateCityData stateData = new StateCityData("-1","州","-1","000000",StateCityData.STATE);
                 stateDataLists.add(0, stateData); //insert a blank item on the top of the list
 
-                stateCityAdapter.changeData(stateDataLists);
-                binding.setStateAdapter(stateCityAdapter);
+                stateAdapter.changeData(stateDataLists);
+                binding.setStateAdapter(stateAdapter);
 
 
                 cityDataLists.clear();
@@ -91,21 +91,28 @@ public class RegistStep2Activity extends BaseActivity {
                 StateCityData cityData = new StateCityData("-1","市","-1","000000",StateCityData.CITY);
                 cityDataLists.add(0, cityData); //insert a blank item on the top of the list
 
-                stateCityAdapter.changeData(cityDataLists);
-                binding.setCityAdapter(stateCityAdapter);
+                cityAdapter.changeData(cityDataLists);
+                binding.setCityAdapter(cityAdapter);
             }
         });
 
         stateCityViewModel.getCurrentConsignorSelectedStateData().observe(this, new Observer<StateCityData>() {
             @Override
-            public void onChanged(@Nullable StateCityData stateCityData) {
+            public void onChanged(@Nullable final StateCityData stateCityData) {
                 cityDataLists.clear();
                 cityDataLists.addAll(stateCityViewModel.getCurrentCitiesData(stateCityData.getId()));
                 StateCityData cityData = new StateCityData("-1","市","-1","000000",StateCityData.CITY);
-                cityData.setSelecteCityId("-1");
                 cityDataLists.add(0, cityData); //insert a blank item on the top of the list
-                stateCityAdapter.changeData(cityDataLists);
-                stateCityViewModel.setSelectCityById("consignor",stateCityData.getId(),stateCityData.getSelecteCityId());
+                cityAdapter.changeData(cityDataLists);
+                binding.setCityAdapter(cityAdapter);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        stateCityViewModel.setSelectCityById("consignor",stateCityData.getId(),stateCityData.getSelecteCityId());
+                    }
+                },100);
+
             }
         });
 
@@ -115,8 +122,6 @@ public class RegistStep2Activity extends BaseActivity {
                 currentSelectedStateCityData = stateCityData;
             }
         });
-
-
     }
 
     private void initEventListener() {
@@ -127,7 +132,7 @@ public class RegistStep2Activity extends BaseActivity {
                 userViewModel.regist(currentSelectedStateCityData,new RObserver<BaseResponse>() {
                     @Override
                     public void onSuccess(BaseResponse baseResponse) {
-                        SPUtils.getInstance().put(SPKeys.TOKENID,baseResponse.getTokenid());
+                        SPUtils.getInstance(SPConstants.USER.NAME).put(SPConstants.USER.TOKENID,baseResponse.getTokenid());
                         ARouter.getInstance().build("/user/login").navigation();
                         ActivityPools.finishAllExcept(LoginActivity.class);
                     }

@@ -37,6 +37,9 @@
     <string name="btn_order_list_view_detail">查看详情</string>
     <string name="btn_msg_dialog_cancle">关闭</string>
     <string name="btn_msg_dialog_cancle_sure">确认</string>
+    <string name="btn_pickup">确认取货</string>
+    <string name="btn_onclick_complete">确认完成</string>
+    <!--<string name="btn_msg_dialog_cancle_sure">确认</string>-->
 
     <string name="hint_phone_num">手机号</string>
     <string name="hint_password">密码</string>
@@ -51,6 +54,7 @@
     <string name="hint_input_check_account">请输入支票账户</string>
     <string name="hint_input_routing_num">请输入 Routing Number</string>
     <string name="hint_input_tax_num">请输入税号</string>
+    <string name="hint_input_paypal_account">请输入结算paypal账号</string>
     <string name="hint_input_referee_name">请输入推荐人姓名(选填)</string>
     <string name="hint_input_referee_tel">请输入推荐人电话(选填)</string>
 
@@ -73,7 +77,8 @@
     <string name="msg_agreement_name">&#160;&#171;配送品台用户协议&#187;</string>
     <string name="msg_vertify_your_account">验证您的账号</string>
     <string name="msg_commit_successful">提交成功</string>
-    <string name="msg_vertify_account_success">已找到该账号，稍后将受到短信验证码，谨防泄漏！</string>
+    <string name="msg_option_successful">操作成功</string>
+    <string name="msg_vertify_account_success">已找到该账号，稍后将收到短信验证码，谨防泄漏！</string>
     <string name="msg_location_provider_disable">请开启GPS,以确保您的位置实时更新！</string>
     <string name="msg_dialog_grap_tip">确认抢单吗？</string>
 
@@ -134,8 +139,36 @@
     <string name="error_empty_old_password">请输入原始密码</string>
     <string name="error_empty_new_password">请输入新密码</string>
     <string name="error_empty_password2">请输入确认密码</string>
+    <string name="error_empty_paypal_account">请输入结算paypal账号</string>
     <string name="error_ensure_password">两次输入的密码不一致</string>
     <string name="error_empty_verCode">请输入收到的短信验证码</string>
     <string name="error_faild_verCode">短信验证码错误</string>
 
+    <string name="language_zh">简体中文</string>
+    <string name="language_en_rUs">English</string>
+    <string name="language_es_rUs">Español</string>
+    <string name="txt_select_language">请选择您所需要的语种</string>
+    <string name="setting_language">设置语言</string>
+    <string name="txt_user_service_scope">服务范围</string>
+    <string name="txt_user_service_scope_min">接收服务人员的最低等级</string>
+    <string name="txt_user_score">信用星级</string>
+    <string name="txt_my_score">我的星级</string>
+    <string name="txt_my_score_record">历史评价</string>
+    <string name="txt_account_num">支票账户：</string>
+    <string name="txt_routing_num">汇款路径账户：</string>
+    <string name="txt_navigation">一键导航</string>
+
+    <string name="txt_user_bills_order_num">订单编号：</string>
+    <string name="txt_user_bills_cosume_fee">消费金额：</string>
+    <string name="txt_user_bills_drive_fee">配送费用：</string>
+    <string name="txt_user_bills_service_fee">手续费用：</string>
+    <string name="txt_user_bills_real_income">实际收入：</string>
+    <string name="txt_user_bills_recommend_date">推荐日期：</string>
+    <string name="txt_user_bills_recommend_reward">推荐奖励：</string>
+    <string name="txt_user_bills_withdraw_cash_date">提现日期：</string>
+    <string name="txt_user_bills_withdraw_cash_amount">提现金额：</string>
+    <string name="txt_user_bills_rechange_date">充值日期：</string>
+    <string name="txt_user_bills_rechange_amount">充值金额：</string>
+    <string name="txt_user_bills_balance_balance">待结算金额：</string>
+    <string name="txt_user_bills_present_balance">可提现金额：</string>
 </resources>
